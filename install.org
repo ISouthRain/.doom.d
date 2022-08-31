@@ -1,0 +1,12 @@
+#+title: Install
+#+author: ISouthRain
+#+date: <2022-08-31 周三>
+
+* Require
+#+begin_src elisp
+(when freedom/is-termux
+  ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
+  (shell-command "git clone https://github.com/doomemacs/doomemacs ~/.emacs.d")
+  (shell-command "pkg install clang sqlite ripgrep") ;; ag 暂时没有
+  )
+#+end_src
