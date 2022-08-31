@@ -1,10 +1,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; aggressive-indent 自动缩进
-;; (use-package aggressive-indent
-;;   :defer 3
-;;   :load-path "~/.doom.d/core/plugins"
-;;   :config
-;;   (global-aggressive-indent-mode 1))
+(use-package aggressive-indent
+  :defer 3
+  :load-path "~/.doom.d/core/plugins"
+  :config
+  (global-aggressive-indent-mode 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bm 标记文件
 (use-package! bm

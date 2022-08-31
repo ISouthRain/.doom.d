@@ -20,8 +20,5 @@
         elfeed-db-directory (expand-file-name ".local/.elfeed" doom-user-dir))
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; gnus
-
 
 (provide 'init-reader)
