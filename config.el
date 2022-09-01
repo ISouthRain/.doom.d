@@ -6,8 +6,8 @@
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
-(setq user-full-name "ISouthRain"
-      user-mail-address "isouthrain@gmail.com")
+;; (setq user-full-name "ISouthRain"
+;;       user-mail-address "isouthrain@gmail.com")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -108,11 +108,11 @@
 (+global-word-wrap-mode t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 解决 server-start deamon 乱码问题
-(when (eq system-type 'windows-nt)
-  (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
-  (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
-  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
-  )
+;; (when (eq system-type 'windows-nt)
+;;   (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+;;   (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
+;;   (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
+;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 代理
 (setq url-proxy-services '(
@@ -138,7 +138,7 @@
 ;; hydra general
 (require 'init-hydra)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; org-roam org-roam org-crypt
+;; org-roam org-roam org-crypt cnfonts
 (require 'init-org)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; aggressive-indent bm
@@ -168,9 +168,9 @@
       :nmv "f" #'avy-goto-char
       :nm "q" #'freedom/evil-quit
       :nmv "Q" #'evil-record-macro
+      :nmv "C-s" #'consult-line
       :v "q" #'evil-escape
       )
 (server-start)
-;;
 ;; doom version commit
 ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
