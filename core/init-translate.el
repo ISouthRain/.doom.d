@@ -25,7 +25,6 @@
     )
   );; go-translate
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; sdcv 翻译
 ;; (when freedom/is-termux
@@ -66,13 +65,13 @@
 ;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 输入中文后自动翻译
-;; (use-package insert-translated-name
-;;   :defer 3
-;;   :ensure nil
-;;   :load-path "~/.doom.d/core/plugins/"
-;;   :config
-;;   (setq insert-translated-name-translate-engine "google");; ;google  youdao
-;;   )
+(after! insert-translated-name
+  :defer 3
+  :ensure nil
+  :load-path "~/.doom.d/core/plugins/"
+  :config
+  (setq insert-translated-name-translate-engine "google");; ;google  youdao
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 对英文单词编写进行提示

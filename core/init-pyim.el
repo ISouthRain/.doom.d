@@ -1,13 +1,13 @@
 ;;; core/init-pyim.el -*- lexical-binding: t; -*-
 
-(use-package pyim
+(after! pyim
   :defer 2
   :config
   (setq pyim-page-length 5)
   (if (display-graphic-p)
       (setq pyim-page-tooltip 'posframe)
     (setq pyim-page-tooltip 'popup))
-  (setq pyim-dcache-directory (format "%s/.local/pyim" doom-user-dir))
+  (setq pyim-dcache-directory (format "%s/pyim" doom-local-dir))
   (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。
   ;; 使用 jk 将能进入 evil-normal-mode
   (defun my-pyim-self-insert-command (orig-func)

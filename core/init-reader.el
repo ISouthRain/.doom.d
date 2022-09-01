@@ -2,17 +2,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; elfeed
-(use-package elfeed
+(after! elfeed
   :defer 3
   :init (setq url-queue-timeout 30)
   :config
+  ;; recentf 排除
   (when recentf-mode
-    ;; recentf 排除
     (push elfeed-db-directory recentf-exclude))
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; elfeed-org
-(use-package elfeed-org
+(after! elfeed-org
   :defer 3
   :config
   (elfeed-org)

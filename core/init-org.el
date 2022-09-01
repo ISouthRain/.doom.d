@@ -29,7 +29,7 @@
 ;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org 设置
-(use-package org
+(after! org
   :defer 2
   :config
   (setq org-capture-bookmark nil)
@@ -177,7 +177,7 @@
   );; use-package org
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org 标题加密， 只需添加 :crypt:
-(use-package org-crypt
+(after! org-crypt
   :defer 2
   :config
   (org-crypt-use-before-save-magic)
@@ -218,10 +218,6 @@
   :after org-roam)
 (use-package! org-roam-ui
   :after org-roam ;; or :after org
-  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-  ;;         a hookable mode anymore, you're advised to pick something yourself
-  ;;         if you don't care about startup time, use
-  ;;  :hook (after-init . org-roam-ui-mode)
   :config
   (setq org-roam-ui-sync-theme t
         org-roam-ui-follow t
@@ -240,20 +236,7 @@
   ;; (setq-default org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))
   (defun my-org-download--dir-1 ()
     (or org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) )))
-
   (advice-add #'org-download--dir-1 :override #'my-org-download--dir-1)
-
   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; org-superstar
-;; (use-package org-superstar
-;;   :defer 3
-;;   :ensure nil
-;;   :load-path "~/.emacs.d/core/plugins"
-;;   :hook (org-mode . org-superstar-mode)
-;;   :custom
-;;   (org-superstar-headline-bullets-list '("☰" "☱" "☲" "☳" "☴" "☵" "☶" "☷"))
-;;   (org-superstar-item-bullet-alist '((43 . "⬧") (45 . "⬨")))
-;;   ;; :init (setq org-superstar-headline-bullets-list '("◉""○""◈""◇""✿""✤""✸""⁕""⚙""▷"))
-;;   )
+
 (provide 'init-org)

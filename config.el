@@ -20,8 +20,7 @@
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
-;;
-(setq doom-font (font-spec :family "Consolas" :size 20 :weight 'semi-light)
+(setq doom-font (font-spec :family "Consolas" :size 20 :weight 'light)
       doom-variable-pitch-font (font-spec :family "Consolas" :size 21))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -76,7 +75,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 区分系统配置
-(require 'subr-x)
+;; (require 'subr-x)
 (setq freedom/is-termux
       (string-suffix-p "Android" (string-trim (shell-command-to-string "uname -a"))))
 (setq freedom/is-linux (and (eq system-type 'gnu/linux)))
@@ -84,12 +83,13 @@
 (setq freedom/is-windows (and (eq system-type 'windows-nt)))
 (setq freedom/is-gui (if (display-graphic-p) t))
 (setq freedom/is-tui (not (display-graphic-p)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (string= "windows-nt" system-type)
   ;; 调整启动时窗口位置/大小/最大化/全屏
   (set-face-attribute 'default nil :height 122)
   (setq initial-frame-alist
-        '((top . 10) (left . 450) (width . 95) (height . 43)))
+        '((top . 10) (left . 450) (width . 100) (height . 43)))
   ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
   ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
   )
@@ -100,19 +100,17 @@
             '((top . 1) (left . 450) (width . 100) (height . 45)))
       ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
       ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
-      (setq doom-font (font-spec :family "Consolas" :size 21 :weight 'semi-light)
-            doom-variable-pitch-font (font-spec :family "Consolas" :size 22))
       )
   )
 ;; 自动换行
 (+global-word-wrap-mode t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 解决 server-start deamon 乱码问题
-;; (when (eq system-type 'windows-nt)
-;;   (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
-;;   (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
-;;   (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
-;;   )
+(when (eq system-type 'windows-nt)
+  (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+  (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
+  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 代理
 (setq url-proxy-services '(

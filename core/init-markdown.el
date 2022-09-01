@@ -1,6 +1,6 @@
 ;;; core/init-markdown.el -*- lexical-binding: t; -*-
 
-(use-package! markdown-toc
+(after! markdown-toc
   :defer 1
   :hook (markdown-mode . markdown-toc-mode)
   :config
