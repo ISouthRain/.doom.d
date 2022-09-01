@@ -216,9 +216,9 @@ nil means disabled."
   (add-hook 'gnus-switch-on-after-hook 'gnus-group-first-unread-group) ;gnus切换时
   (add-hook 'gnus-summary-exit-hook 'gnus-group-first-unread-group)    ;退出Summary时
   ;; 自动更新新消息
-  (add-hook 'gnus-summary-exit-hook 'gnus-notify+)        ;退出summary模式后
-  (add-hook 'gnus-group-catchup-group-hook 'gnus-notify+) ;当清理当前组后
-  (add-hook 'mail-notify-pre-hook 'gnus-notify+)          ;更新邮件时
+  ;; (add-hook 'gnus-summary-exit-hook 'gnus-notify+)        ;退出summary模式后
+  ;; (add-hook 'gnus-group-catchup-group-hook 'gnus-notify+) ;当清理当前组后
+  ;; (add-hook 'mail-notify-pre-hook 'gnus-notify+)          ;更新邮件时
   ;; 斑纹化
   (setq gnus-summary-stripe-regexp        ;设置斑纹化匹配的正则表达式
         (concat "^[^"
