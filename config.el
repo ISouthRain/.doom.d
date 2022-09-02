@@ -21,7 +21,14 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 (setq doom-font (font-spec :family "Consolas" :size 20 :weight 'light)
-      doom-variable-pitch-font (font-spec :family "Consolas" :size 21))
+      doom-variable-pitch-font (font-spec :family "Consolas" :size 21)
+      doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
+      )
+;; (setq doom-font (font-spec :family "JetBrains Mono" :weight 'light :size 20)
+;;       doom-variable-pitch-font (font-spec :family "CMU Typewriter Text")
+;;       doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
+;;       doom-big-font (font-spec :family "JetBrains Mono" :weight 'light :size 20)
+;;       doom-serif-font(font-spec :family "CMU Typewriter Text" :weight 'light :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -75,7 +82,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 区分系统配置
-;; (require 'subr-x)
+(require 'subr-x)
 (setq freedom/is-termux
       (string-suffix-p "Android" (string-trim (shell-command-to-string "uname -a"))))
 (setq freedom/is-linux (and (eq system-type 'gnu/linux)))
@@ -86,6 +93,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (string= "windows-nt" system-type)
+  ;; (setq doom-unicode-font (font-spec :family "BabelStone Han"))
   ;; 调整启动时窗口位置/大小/最大化/全屏
   (set-face-attribute 'default nil :height 122)
   (setq initial-frame-alist
@@ -97,7 +105,7 @@
     (when (not freedom/is-termux)
       (set-face-attribute 'default nil :height 130)
       (setq initial-frame-alist
-            '((top . 1) (left . 450) (width . 100) (height . 45)))
+            '((top . 1) (left . 450) (width . 100) (height . 48)))
       ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
       ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
       )
@@ -106,11 +114,11 @@
 (+global-word-wrap-mode t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 解决 server-start deamon 乱码问题
-(when (eq system-type 'windows-nt)
-  (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
-  (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
-  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
-  )
+;; (when (eq system-type 'windows-nt)
+;;   (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+;;   (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
+;;   (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
+;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 代理
 (setq url-proxy-services '(

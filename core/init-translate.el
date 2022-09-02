@@ -30,7 +30,6 @@
 ;; (when freedom/is-termux
 ;;     (use-package sdcv
 ;;       :defer 3
-;;       :ensure nil
 ;;       :load-path "~/.doom.d/core/plugins"
 ;;       :config
 ;;       ;; 翻译后是否说话
@@ -65,20 +64,24 @@
 ;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 输入中文后自动翻译
-(after! insert-translated-name
+(use-package insert-translated-name
   :defer 3
-  :ensure nil
   :load-path "~/.doom.d/core/plugins/"
   :config
   (setq insert-translated-name-translate-engine "google");; ;google  youdao
+  (defun freedom-english-translate ()
+    (interactive))
+  (advice-add #'freedom-english-translate :override #'insert-translated-name-insert)
   )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 对英文单词编写进行提示
-;; (use-package company-english-helper
-;;   :ensure nil
-;;   :defer 6
-;;   :load-path "~/.doom.d/core/plugins/"
-;;   )
+(use-package company-english-helper
+  :defer 2
+  :load-path "~/.doom.d/core/plugins/"
+  :config
+  (defun freedom-english-company ()
+    (interactive)
+    (toggle-company-english-helper))
+  )
 
 (provide 'init-translate)
