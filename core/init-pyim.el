@@ -1,13 +1,13 @@
 ;;; core/init-pyim.el -*- lexical-binding: t; -*-
 
 (after! pyim
+  :init
+  (setq pyim-dcache-directory (format "%s.local/pyim" doom-user-dir))
   :defer 2
   :config
+  (pyim-basedict-enable);; 为 pyim 添加词库
   (setq pyim-page-length 5)
-  (if (display-graphic-p)
-      (setq pyim-page-tooltip 'posframe)
-    (setq pyim-page-tooltip 'popup))
-  (setq pyim-dcache-directory (format "%s/pyim" doom-local-dir))
+  (setq pyim-page-tooltip '(posframe popup minibuffer))
   (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。
   ;; 使用 jk 将能进入 evil-normal-mode
   (defun my-pyim-self-insert-command (orig-func)
@@ -50,5 +50,4 @@
   ;; 设置PYIM图标
   (setq pyim-title "🌲 ")
   );; pyim
-
 (provide 'init-pyim)

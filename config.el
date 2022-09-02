@@ -176,6 +176,8 @@
       :nmv "Q" #'evil-record-macro
       :nmv "C-s" #'consult-line
       :v "q" #'evil-escape
+      :map c-mode-map
+      :n "gd" #'dumb-jump-go
       )
 (server-start)
 ;; doom version commit
