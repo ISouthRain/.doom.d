@@ -27,41 +27,42 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; sdcv 翻译
-;; (when freedom/is-termux
-;;     (use-package sdcv
-;;       :defer 3
-;;       :load-path "~/.doom.d/core/plugins"
-;;       :config
-;;       ;; 翻译后是否说话
-;;       (setq sdcv-say-word-p nil)
-;;       ;; sdcv 字典目录
-;;       ;; (setq sdcv-dictionary-data-dir (expand-file-name ".stardict/dic" doom-local-dir))
-;;       (setq sdcv-dictionary-data-dir "/data/data/com.termux/files/home/.doom.d/.local/.stardict/dic")
+(when freedom/is-termux
+  (use-package sdcv
+    :defer 3
+    :load-path "~/.doom.d/core/plugins"
+    :config
+    ;; 翻译后是否说话
+    (setq sdcv-say-word-p nil)
+    ;; sdcv 字典目录
+    (setq sdcv-dictionary-data-dir "/rood/.doom.d/.local/.stardict/dic")
+    (if freedom/is-termux
+        (setq sdcv-dictionary-data-dir "/data/data/com.termux/files/home/.doom.d/.local/.stardict/dic"))
 
-;;       (setq sdcv-dictionary-simple-list    ;setup dictionary list for simple search
-;;             '(
-;;               "懒虫简明英汉词典"
-;;               "计算机词汇"
-;;               "牛津高阶英汉双解"
-;;               ))
-;;       (setq sdcv-dictionary-complete-list     ;setup dictionary list for complete search
-;;             '(
-;;               "懒虫简明英汉词典"
-;;               "懒虫简明汉英词典"
-;;               "牛津高阶英汉双解"
-;;               ))
-;;       ;; 修改调用 popup-tip 弹窗
-;;       (when freedom/is-termux
-;;         (defun freedom-sdcv-search-simple (&optional word)
-;;           "Search WORD simple translate result."
-;;           (when (ignore-errors (require 'posframe))
-;;             (let ((result (sdcv-search-with-dictionary word sdcv-dictionary-simple-list)))
-;;               ;; Show tooltip at point if word fetch from user cursor.
-;;               (popup-tip result '(max-width)))))
-;;         (advice-add #'sdcv-search-simple :override #'freedom-sdcv-search-simple))
+    (setq sdcv-dictionary-simple-list    ;setup dictionary list for simple search
+          '(
+            "懒虫简明英汉词典"
+            "计算机词汇"
+            "牛津高阶英汉双解"
+            ))
+    (setq sdcv-dictionary-complete-list     ;setup dictionary list for complete search
+          '(
+            "懒虫简明英汉词典"
+            "懒虫简明汉英词典"
+            "牛津高阶英汉双解"
+            ))
+    ;; 修改调用 popup-tip 弹窗
+    (when freedom/is-termux
+      (defun freedom-sdcv-search-simple (&optional word)
+        "Search WORD simple translate result."
+        (when (ignore-errors (require 'posframe))
+          (let ((result (sdcv-search-with-dictionary word sdcv-dictionary-simple-list)))
+            ;; Show tooltip at point if word fetch from user cursor.
+            (popup-tip result '(max-width)))))
+      (advice-add #'sdcv-search-simple :override #'freedom-sdcv-search-simple))
 
-;;       )
-;;   )
+    )
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 输入中文后自动翻译
 (use-package insert-translated-name
