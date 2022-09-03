@@ -1,13 +1,14 @@
 ;;; core/init-reader.el -*- lexical-binding: t; -*-
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; nov Novel reader
 (use-package! nov
   :mode ("\\.epub\\'" . nov-mode)
+  :mode ("\\.mobi\\'" . nov-mode)
   :config
   (setq nov-save-place-file (concat doom-user-dir ".local/nov-places"))
   )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; elfeed
 (after! elfeed

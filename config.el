@@ -140,6 +140,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path (expand-file-name "core" doom-user-dir))
 (require 'init-basic)
+(require 'init-evil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hydra general
 (require 'init-hydra)
@@ -178,6 +179,9 @@
       :v "q" #'evil-escape
       :map c-mode-map
       :n "gd" #'dumb-jump-go
+      :leader
+      (:prefix-map ("f" . "file")
+       :desc "Translate text"  "y"   #'gts-do-translate)
       )
 
 (server-start)

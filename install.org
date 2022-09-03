@@ -9,3 +9,15 @@
   (shell-command "git clone https://github.com/doomemacs/doomemacs ~/.emacs.d")
   (shell-command "pkg install clang sqlite ripgrep unzip") ;; ag 暂时没有
   )
+* pdf TOOL 安装
+#+begin_src bash
+sudo apt install libpng-dev zlib1g-dev libpoppler-glib-dev imagemagick
+#+end_src
+** 回到 emacs 运行以下命令
+  #+begin_src elisp
+   pdf-tools-install
+  #+end_src
+- 检查是否可用
+  #+begin_src elisp
+  pdf-info-check-epdfinfo
+  #+end_src

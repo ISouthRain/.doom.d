@@ -13,4 +13,5 @@
       (if (not freedom/is-termux)
           (find-file "~/f/Hugo/content/posts/Home.md")))
   )
+
 (provide 'init-basic)
