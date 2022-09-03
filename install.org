@@ -21,3 +21,16 @@ sudo apt install libpng-dev zlib1g-dev libpoppler-glib-dev imagemagick
   #+begin_src elisp
   pdf-info-check-epdfinfo
   #+end_src
+
+  
+* telega Install, tdlib 1.8.4, 如果不是从 straight or melpa 安装 emacs telega package, 记得到 telega package 构建
+  #+BEGIN_SRC bash
+  git clone https://github.com/tdlib/td
+  cd td
+  git checkout b447c32fe94c3d62d74c6b9608649c791641c3e5
+  mkdir build
+  cd build
+  cmake -DCMAKE_BUILD_TYPE=Release ..
+  cmake --build .
+  make install
+  #+END_SRC
