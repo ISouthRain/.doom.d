@@ -13,6 +13,7 @@
     (when (string= "windows-nt" system-type)
       (find-file "F:\\Hugo\\content\\posts\\Home.md"))
     )
+
   )
 
 (provide 'init-markdown)

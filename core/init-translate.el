@@ -9,22 +9,26 @@
   (setq gts-translate-list '(("en" "zh") ("fr" "zh")))
   ;; 设置为 t 光标自动跳转到buffer
   (setq gts-buffer-follow-p t)
-  (if (display-graphic-p)
-      (if (posframe-workable-p)
-          (setq gts-default-translator
-                (gts-translator
-                 :picker (gts-noprompt-picker)
-                 :engines (list (gts-google-rpc-engine) (gts-bing-engine))
-                 :render (gts-posframe-pop-render :forecolor "#ffffff" :backcolor "#111111")))
-        )
-    (setq gts-default-translator
-          (gts-translator
-           :picker (gts-noprompt-picker)
-           :engines (list (gts-google-rpc-engine) (gts-bing-engine))
-           :render (gts-buffer-render)))
-    )
-  );; go-translate
+  ;; (if (display-graphic-p)
+  ;;     (if (posframe-workable-p)
+  ;;         (setq gts-default-translator
+  ;;               (gts-translator
+  ;;                :picker (gts-noprompt-picker)
+  ;;                :engines (list (gts-google-rpc-engine) (gts-bing-engine))
+  ;;                :render (gts-posframe-pop-render :forecolor "#ffffff" :backcolor "#111111")))
+  ;;       )
+  ;;   (setq gts-default-translator
+  ;;         (gts-translator
+  ;;          :picker (gts-noprompt-picker)
+  ;;          :engines (list (gts-google-rpc-engine) (gts-bing-engine))
+  ;;          :render (gts-buffer-render)))
+  ;;   )
+  (gts-translator
+   :picker (gts-noprompt-picker)
+   :engines (list (gts-google-rpc-engine) (gts-bing-engine))
+   :render (gts-buffer-render))
 
+  );; go-translate
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; sdcv 翻译
 (when freedom/is-termux
@@ -84,5 +88,4 @@
     (interactive)
     (toggle-company-english-helper))
   )
-
 (provide 'init-translate)

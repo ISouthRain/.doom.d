@@ -1,4 +1,4 @@
-;;; core/init-pyim.el -*- lexical-binding: t; -*-
+;; core/init-pyim.el -*- lexical-binding: t; -*-
 
 (after! pyim
   :init
@@ -6,7 +6,7 @@
   :defer 2
   :config
   (pyim-basedict-enable);; 为 pyim 添加词库
-  (pyim-default-scheme 'xiaohe-shuangpin) ;;
+  ;; (pyim-default-scheme 'xiaohe-shuangpin) ;;
   (setq pyim-page-length 5)
   (setq pyim-page-tooltip '(posframe popup minibuffer))
   (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。
@@ -51,4 +51,5 @@
   ;; 设置PYIM图标
   (setq pyim-title "🌲 ")
   );; pyim
+
 (provide 'init-pyim)
