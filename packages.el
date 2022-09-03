@@ -54,3 +54,4 @@
 (package! posframe :pin "0d23bc5f7cfac00277d83ae7ba52c48685bcbc68")
 (package! pyim :pin "6b4cea1b541f5efd18067d4cafa1ca4b059a0c63")
 (package! pyim-basedict :pin "4aa30ff9f83cf6435230a987d323e48230f1f40e")
+(package! nov :pin "ea0c835c1b5e6e70293f4bd64e9c89bdc42f8596")

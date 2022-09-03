@@ -2,31 +2,31 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cnfonts Org-mode 中英文字体对齐
-(when (not freedom/is-termux)
-  (use-package cnfonts
-    :load-path "~/.doom.d/core/plugins/cnfonts"
-    :defer 2
-    :init
-    (when freedom/is-windows
-      (setq cnfonts-directory (expand-file-name ".local/cnfonts/windows" doom-user-dir)))
-    (when freedom/is-linux
-      (setq cnfonts-directory (expand-file-name ".local/cnfonts/linux" doom-user-dir)))
-    (when freedom/is-darwin
-      (setq cnfonts-directory (expand-file-name ".local/cnfonts/darwin" doom-user-dir)))
-    :custom
-    (cnfonts-personal-fontnames '(("Consolas" "Constantia" "PragmataPro Mono Liga" "Go Mono" "Fira Code" "Ubuntu Mono" "SF Mono");; 英文
-                                  ("微软雅黑" "Sarasa Mono SC Nerd" "M 盈黑 PRC W5" "方正聚珍新仿简繁" "苹方 常规" "苹方 中等" "M 盈黑 PRC W4" "PragmataPro Mono Liga");; 中文
-                                  ("Simsun-ExtB" "方正聚珍新仿简繁" "PragmataPro Mono Liga");; EXT-B
-                                  ("Segoe UI Symbol" "PragmataPro Mono Liga")));; 字符
-    :config
-    (setq cnfonts-profiles
-          '("program" "org-mode" "read-book"))
-    (when (not freedom/is-termux)
-      (cnfonts-mode)
-      (cnfonts-set-font)
-      )
-    )
-  )
+;; (when (not freedom/is-termux)
+;;   (use-package cnfonts
+;;     :load-path "~/.doom.d/core/plugins/cnfonts"
+;;     :defer 2
+;;     :init
+;;     (when freedom/is-windows
+;;       (setq cnfonts-directory (expand-file-name ".local/cnfonts/windows" doom-user-dir)))
+;;     (when freedom/is-linux
+;;       (setq cnfonts-directory (expand-file-name ".local/cnfonts/linux" doom-user-dir)))
+;;     (when freedom/is-darwin
+;;       (setq cnfonts-directory (expand-file-name ".local/cnfonts/darwin" doom-user-dir)))
+;;     :custom
+;;     (cnfonts-personal-fontnames '(("Consolas" "Constantia" "PragmataPro Mono Liga" "Go Mono" "Fira Code" "Ubuntu Mono" "SF Mono");; 英文
+;;                                   ("微软雅黑" "Sarasa Mono SC Nerd" "M 盈黑 PRC W5" "方正聚珍新仿简繁" "苹方 常规" "苹方 中等" "M 盈黑 PRC W4" "PragmataPro Mono Liga");; 中文
+;;                                   ("Simsun-ExtB" "方正聚珍新仿简繁" "PragmataPro Mono Liga");; EXT-B
+;;                                   ("Segoe UI Symbol" "PragmataPro Mono Liga")));; 字符
+;;     :config
+;;     (setq cnfonts-profiles
+;;           '("program" "org-mode" "read-book"))
+;;     (when (not freedom/is-termux)
+;;       (cnfonts-mode)
+;;       (cnfonts-set-font)
+;;       )
+;;     )
+;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org 设置
 (after! org
