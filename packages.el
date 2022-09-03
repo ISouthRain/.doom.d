@@ -55,3 +55,5 @@
 (package! pyim :pin "6b4cea1b541f5efd18067d4cafa1ca4b059a0c63")
 (package! pyim-basedict :pin "4aa30ff9f83cf6435230a987d323e48230f1f40e")
 (package! nov :pin "ea0c835c1b5e6e70293f4bd64e9c89bdc42f8596")
+(package! telega :pin "42a0dd0e30a82a8e34eaccf6e7a1366f4621d49d")
+(package! theme-changer :pin "57b8c579f134374a45bec9043feff6b29bb4f108")

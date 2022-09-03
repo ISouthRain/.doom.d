@@ -1,6 +1,25 @@
 ;;; core/init-reader.el -*- lexical-binding: t; -*-
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; telega
+(use-package! telega
+  :defer t
+  :commands (telega)
+  ;; :init
+  ;; (setq telega-use-docker t) ;; 是否设置为 docker server
+  :config
+  (when freedom/is-linux
+    (setq telega-proxies (list '(:server "192.168.31.241" :port 7890 :enable t
+                                 :type (:@type "proxyTypeSocks5")))))
+  (when freedom/is-windows
+    (setq telega-proxies (list '(:server "127.0.0.1" :port 7890 :enable t
+                                 :type (:@type "proxyTypeSocks5")))))
+  ;; (setq telega-chat-show-avatars nil
+  ;;       telega-active-locations-show-avatars nil
+  ;;       telega-company-username-show-avatars nil
+  ;;       telega-root-show-avatars nil
+  ;;       telega-user-show-avatars nil)
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; nov Novel reader
 (use-package! nov
