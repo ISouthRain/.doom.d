@@ -32,7 +32,9 @@
 ;; elfeed
 (after! elfeed
   :defer 3
-  :init (setq url-queue-timeout 30)
+  :init
+  (setq url-queue-timeout 30)
+  (setq elfeed-db-directory (concat doom-user-dir ".local/.elfeed/db/"))
   :config
   ;; recentf 排除
   (when recentf-mode
@@ -44,8 +46,7 @@
   :defer 3
   :config
   (elfeed-org)
-  (setq rmh-elfeed-org-files (list (expand-file-name "elfeed.org" doom-user-dir))
-        elfeed-db-directory (expand-file-name ".local/.elfeed" doom-user-dir))
+  (setq rmh-elfeed-org-files (list (expand-file-name "elfeed.org" doom-user-dir)))
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; gnus

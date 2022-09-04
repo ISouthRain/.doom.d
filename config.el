@@ -141,6 +141,7 @@
 (add-to-list 'load-path (expand-file-name "core" doom-user-dir))
 ;; theme-changer defun
 (require 'init-basic)
+;; evil-collection
 (require 'init-evil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hydra general
