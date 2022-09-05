@@ -1,7 +1,35 @@
 ;;; core/init-calendar.el -*- lexical-binding: t; -*-
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; calfw
+(use-package! calfw
+  :defer 2
+  :config
+  ;; Month
+  (setq calendar-month-name-array
+        ["一月" "二月" "三月" "四月" "五月"   "六月"
+         "七月" "八月" "九月" "十月" "十一月" "十二月"])
+  ;; Week days
+  (setq calendar-day-name-array
+        ["周末" "周一" "周二" "周三" "周四" "周五" "周六"])
+  ;; First day of the week
+  (setq calendar-week-start-day 0) ; 0:Sunday, 1:Monday
+  (defun cfw:freedom-calendar ()
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source "Orange")  ; orgmode source
+      (cfw:ical-create-source "RainISouth" "https://calendar.google.com/calendar/ical/isouthrain%40gmail.com/public/basic.ics" "Blue") ; google calendar ICS
+      (cfw:ical-create-source "ChinaHoliday" "https://calendar.google.com/calendar/ical/zh-cn.china%23holiday%40group.v.calendar.google.com/public/basic.ics" "IndianRed") ; google calendar ICS
+      )))
+
+  ;; (advice-add #'calendar :override #'cfw:freedom-calendar)
+  )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; cal-china-x
 (use-package cal-china-x
-  :defer 5
+  :defer 3
   :load-path "~/.doom.d/core/plugins"
   :after calendar
   :commands cal-china-x-setup
@@ -26,7 +54,7 @@
                                  (holiday-float 5 0 2 "母亲节")
                                  (holiday-float 6 0 3 "父亲节")
                                  (holiday-float 11 4 4 "感恩节"))
-        holiday-custom-holidays '((holiday-lunar 7 29 "生日快乐"))
+        holiday-custom-holidays '((holiday-lunar 7 29 "Happy Birthday"))
         calendar-holidays (append cal-china-x-important-holidays
                                   cal-china-x-general-holidays
                                   holiday-other-holidays

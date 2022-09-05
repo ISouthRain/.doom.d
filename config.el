@@ -156,7 +156,7 @@
 ;; elfeed elfeed-org gnus mu4e telega
 (require 'init-reader)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; calendar
+;; calendar calfw
 (require 'init-calendar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; markdown-toc markdown-mode

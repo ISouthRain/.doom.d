@@ -6,29 +6,27 @@
   :config
   (global-aggressive-indent-mode 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; bm 标记文件
+;; bm Save the bookmark
+;; Do not delay load
 (use-package! bm
-  :defer 1
   :load-path "~/.doom.d/core/plugins"
-  :hook '((after-init . bm-repository-load)
-          (after-revert . bm-buffer-restore)
-          (find-file . bm-buffer-restore)
-          (after-save . bm-buffer-restore)
-          (vc-before-checkin . bm-buffer-save)
-          (kill-buffer . bm-buffer-save))
-  :after (evil)
+  :demand t
   :init
-  ;; 在哪里存储持久文件
-  (setq bm-repository-file "~/.emacs.d/.local/bm-repository"
-        bm-restore-repository-on-load t)
+  (setq bm-restore-repository-on-load t)
   :config
   (setq bm-cycle-all-buffers t)
-  ;; save bookmarks
+  (setq bm-repository-file "~/.doom.d/.local/bm-repository")
   (setq-default bm-buffer-persistence t)
-  ;; 必须先保存所有书签。
+  (add-hook 'after-init-hook 'bm-repository-load)
+  (add-hook 'kill-buffer-hook #'bm-buffer-save)
   (add-hook 'kill-emacs-hook #'(lambda nil
                                  (bm-buffer-save-all)
                                  (bm-repository-save)))
+  (add-hook 'after-save-hook #'bm-buffer-save)
+  (add-hook 'find-file-hooks   #'bm-buffer-restore)
+  (add-hook 'after-revert-hook #'bm-buffer-restore)
+  (add-hook 'vc-before-checkin-hook #'bm-buffer-save)
+
   (defhydra hydra-bm (:color pink
                       :hint nil
                       :foreign-keys warn ;; 不要使用hydra以外的键

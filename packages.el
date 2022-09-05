@@ -57,3 +57,4 @@
 (package! nov :pin "ea0c835c1b5e6e70293f4bd64e9c89bdc42f8596")
 (package! telega :pin "42a0dd0e30a82a8e34eaccf6e7a1366f4621d49d")
 (package! theme-changer :pin "57b8c579f134374a45bec9043feff6b29bb4f108")
+(package! calibredb :recipe (:host github :repo "chenyanming/calibredb.el" :files ("*.el")) :pin "2f2cfc38f2d1c705134b692127c3008ac1382482")

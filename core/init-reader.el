@@ -1,6 +1,28 @@
 ;;; core/init-reader.el -*- lexical-binding: t; -*-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; calibre
+(when (not freedom/is-termux)
+  (use-package! calibredb
+    :defer t
+    :config
+    (when freedom/is-linux
+      (setq calibredb-root-dir "~/f/CalibreHome")
+      (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
+      (setq calibredb-library-alist '(("~/f/CalibreHome")
+                                      ;; ("~/Documents/Books Library")
+                                      )))
+    (when freedom/is-windows
+      (setq calibredb-root-dir "F:\\CalibreHome")
+      (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
+      (setq calibredb-library-alist '(("F:\\CalibreHome")
+                                      ;; ("~/Documents/Books Library")
+                                      )))
+    (setq calibredb-format-all-the-icons t)
+    (setq calibredb-format-icons-in-terminal t)
+    (setq calibredb-format-character-icons t)
+    ))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; telega
 (use-package! telega
   :defer t
@@ -14,11 +36,12 @@
   (when freedom/is-windows
     (setq telega-proxies (list '(:server "127.0.0.1" :port 7890 :enable t
                                  :type (:@type "proxyTypeSocks5")))))
-  ;; (setq telega-chat-show-avatars nil
-  ;;       telega-active-locations-show-avatars nil
-  ;;       telega-company-username-show-avatars nil
-  ;;       telega-root-show-avatars nil
-  ;;       telega-user-show-avatars nil)
+  (setq telega-use-images t)
+  (setq telega-chat-show-avatars t
+        telega-active-locations-show-avatars t
+        telega-company-username-show-avatars t
+        telega-root-show-avatars t
+        telega-user-show-avatars t)
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; nov Novel reader
