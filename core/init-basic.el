@@ -13,6 +13,14 @@
       (if (not freedom/is-termux)
           (find-file "~/f/Hugo/content/posts/Home.md")))
   )
+
+(display-time-mode 1) ;; 常显
+(setq display-time-24hr-format t) ;;格式
+(setq display-time-day-and-date t) ;;显示时间、星期、日期
+;; 显示电池
+(if (display-graphic-p)
+    (display-battery-mode 1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Automatically replace the topic according to time
 (when (not freedom/is-termux)

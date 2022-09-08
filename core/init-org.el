@@ -32,6 +32,13 @@
 (after! org
   :defer 2
   :config
+  ;; org-mode 排除对中文的补全
+  (progn
+    (push 'company-dabbrev-char-regexp company-backends)
+    (setq company-dabbrev-char-regexp "[\\.0-9a-zA-Z-_'/]")
+    (set-company-backend! 'org-mode
+      'company-dabbrev-char-regexp 'company-yasnippet))
+
   (setq org-capture-bookmark nil)
   (when freedom/is-windows
     (setq org-directory "F:\\MyFile\\Org"

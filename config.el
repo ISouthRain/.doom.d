@@ -20,9 +20,8 @@
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
-(setq doom-font (font-spec :family "Consolas" :size 20 :weight 'light)
-      doom-variable-pitch-font (font-spec :family "Consolas" :size 21)
-      doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
+(setq doom-font (font-spec :family "Iosevka" :size 20 :weight 'light)
+      ;; doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
       )
 ;; (setq doom-font (font-spec :family "JetBrains Mono" :weight 'light :size 20)
 ;;       doom-variable-pitch-font (font-spec :family "CMU Typewriter Text")
@@ -97,7 +96,7 @@
   ;; 调整启动时窗口位置/大小/最大化/全屏
   (set-face-attribute 'default nil :height 122)
   (setq initial-frame-alist
-        '((top . 10) (left . 450) (width . 100) (height . 43)))
+        '((top . 10) (left . 450) (width . 100) (height . 39)));; 39 ==> 43
   ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
   ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
   )
@@ -179,8 +178,6 @@
       :nmv "Q" #'evil-record-macro
       :nmv "C-s" #'consult-line
       :v "q" #'evil-escape
-      :map c-mode-map
-      :n "gd" #'dumb-jump-go
       :leader
       (:prefix-map ("f" . "file")
        :desc "Translate text"  "y"   #'gts-do-translate)
