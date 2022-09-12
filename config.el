@@ -178,6 +178,8 @@
       :nmv "Q" #'evil-record-macro
       :nmv "C-s" #'consult-line
       :v "q" #'evil-escape
+      :map (c-mode-map python-mode-map)
+      :nm "gd" #'dumb-jump-go
       :leader
       (:prefix-map ("f" . "file")
        :desc "Translate text"  "y"   #'gts-do-translate)
