@@ -35,5 +35,9 @@
       (kbd "DEL") 'nov-scroll-down))
   (advice-add #'evil-collection-nov-setup :override #'freedom-evil-collection-nov-setup)
   )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org mode cycle global
+(after! evil-org
+  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
 (provide 'init-evil)

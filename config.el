@@ -149,12 +149,10 @@
 ;; org-roam org-roam org-crypt cnfonts
 (require 'init-org)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; aggressive-indent bm
+;; aggressive-indent bm auto-save
 (require 'init-edit)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; elfeed elfeed-org gnus mu4e telega
-(require 'init-reader)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; elfeed e;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; calendar calfw
 (require 'init-calendar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -184,7 +182,6 @@
       (:prefix-map ("f" . "file")
        :desc "Translate text"  "y"   #'gts-do-translate)
       )
-
 (server-start)
 ;; doom version commit
 ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61

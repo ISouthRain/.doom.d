@@ -1,11 +1,26 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Automatic preservationauto-save
+(use-package auto-save
+  :load-path "~/.doom.d/core/plugins"
+  :defer 2
+  :config
+  (auto-save-enable)
+  (setq auto-save-silent t)   ; quietly save
+  (setq auto-save-delete-trailing-whitespace t)  ; automatically delete spaces at the end of the line when saving
+  (setq auto-save-disable-predicates
+        '((lambda ()
+            (string-suffix-p
+             "gpg" "org"
+             (file-name-extension (buffer-name)) t))))
+  )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; aggressive-indent 自动缩进
 (use-package aggressive-indent
   :defer 3
   :load-path "~/.doom.d/core/plugins"
   :hook (elisp-mode . aggressive-indent-mode)
   :config
-  ;; (global-aggressive-indent-mode 1)
+  (global-aggressive-indent-mode 1)
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bm Save the bookmark
