@@ -109,6 +109,12 @@
       ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
       )
   )
+(when freedom/is-darwin
+  (setq initial-frame-alist
+        '((top . 1) (left . 450) (width . 100) (height . 45)))
+  ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
+  ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
+  )
 ;; 自动换行
 (+global-word-wrap-mode t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -152,7 +158,9 @@
 ;; aggressive-indent bm auto-save
 (require 'init-edit)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; elfeed e;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; elfeed elfeed-org telega gnus nov mu4e
+(require 'init-reader)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; calendar calfw
 (require 'init-calendar)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -166,7 +174,10 @@
 (require 'init-pyim)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; dumb-jump
-(require 'init-lsp)
+;; (require 'init-lsp)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; player
+;; (require 'init-player)
 
 (map! :nmv ";" #'evil-ex
       :nmv "m" #'hydra-bm/body
@@ -176,11 +187,13 @@
       :nmv "Q" #'evil-record-macro
       :nmv "C-s" #'consult-line
       :v "q" #'evil-escape
-      :map (c-mode-map python-mode-map)
-      :nm "gd" #'dumb-jump-go
+ ;; :map (c-mode-map python-mode-map)
+ ;; :nm "gd" #'dumb-jump-go
       :leader
       (:prefix-map ("f" . "file")
        :desc "Translate text"  "y"   #'gts-do-translate)
+      (:prefix-map ("c" . "code")
+       :desc "对齐代码"  "SPC"   #'align-regexp)
       )
 (server-start)
 ;; doom version commit

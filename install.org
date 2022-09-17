@@ -10,11 +10,13 @@
 - https://github.com/lxgw/LxgwWenKai/releases/download/v1.235.2/lxgw-wenkai-v1.235.2.zip
 - M-x all-the-icons-install-fhonts
 * Require
+#+BEGIN_SRC elisp
 (when freedom/is-termux
   ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
   (shell-command "git clone https://github.com/doomemacs/doomemacs ~/.emacs.d")
-  (shell-command "pkg install clang sqlite ripgrep unzip") ;; ag 暂时没有
+  (shell-command "pkg install clang sqlite ripgrep unzip")
   )
+#+END_SRC
 * pdf TOOL 安装
 #+begin_src bash
 sudo apt install libpng-dev zlib1g-dev libpoppler-glib-dev imagemagick
@@ -33,7 +35,7 @@ sudo apt install libpng-dev zlib1g-dev libpoppler-glib-dev imagemagick
   sudo apt install openssl cmake gperf
   git clone https://github.com/tdlib/td
   cd td
-  git checkout b447c32fe94c3d62d74c6b9608649c791641c3e5
+  git checkout b447c32fe94c3d62d74c6b9608649c791641c3e5 # tdlib 1.8.4
   mkdir build
   cd build
   cmake -DCMAKE_BUILD_TYPE=Release ..
