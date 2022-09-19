@@ -29,7 +29,6 @@ sudo apt install libpng-dev zlib1g-dev libpoppler-glib-dev imagemagick
   #+begin_src elisp
   pdf-info-check-epdfinfo
   #+end_src
-
 * telega Install, tdlib 1.8.4, 如果不是从 straight or melpa 安装 emacs telega package, 记得到 telega package 构建
   #+BEGIN_SRC bash
   sudo apt install openssl cmake gperf

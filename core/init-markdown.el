@@ -4,6 +4,7 @@
   :defer 1
   :hook (markdown-mode . markdown-toc-mode)
   :config
+  (add-hook 'markdown-mode-hook #'markdown-toc-mode)
   (defun freedom-hugo-home ()
     (interactive) ; 如果不需要定义成命令，这句可以不要。
     (when (string= "gnu/linux" system-type)

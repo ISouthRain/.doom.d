@@ -21,7 +21,7 @@
 ;;   :load-path "~/.doom.d/core/plugins"
 ;;   :hook (elisp-mode . aggressive-indent-mode)
 ;;   :config
-;;   (global-aggressive-indent-mode 1)
+;;   ;; (global-aggressive-indent-mode 1)
 ;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; bm Save the bookmark

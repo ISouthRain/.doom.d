@@ -1,5 +1,13 @@
 ;;; core/init-basic.el -*- lexical-binding: t; -*-
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; function define
+(defun freedom/evil-quit ()
+  "Quit current window or buffer."
+  (interactive)
+  (if (> (seq-length (window-list (selected-frame))) 1)
+      (delete-window)
+    (previous-buffer)))
 
 (defun freedom-hugo-home ()
   (interactive)
@@ -14,6 +22,8 @@
           (find-file "~/f/Hugo/content/posts/Home.md")))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; basic configuration
 (display-time-mode 1) ;; 常显
 (setq display-time-24hr-format t) ;;格式
 (setq display-time-day-and-date t) ;;显示时间、星期、日期

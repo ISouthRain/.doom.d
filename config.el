@@ -136,25 +136,22 @@
                                ("https" . "192.168.31.241:7890")))
     )
   )
-(defun freedom/evil-quit ()
-  "Quit current window or buffer."
-  (interactive)
-  (if (> (seq-length (window-list (selected-frame))) 1)
-      (delete-window)
-    (previous-buffer)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'load-path (expand-file-name "core" doom-user-dir))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; theme-changer defun
 (require 'init-basic)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil-collection
 (require 'init-evil)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hydra general
 (require 'init-hydra)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-roam org-roam org-crypt cnfonts
 (require 'init-org)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; aggressive-indent bm auto-save
 (require 'init-edit)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -170,11 +167,11 @@
 ;; go-translate
 (require 'init-translate)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; pyim
+;; pyim pyim-basedict
 (require 'init-pyim)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; dumb-jump
-;; (require 'init-lsp)
+(require 'init-lsp)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; player
 ;; (require 'init-player)
@@ -186,6 +183,7 @@
       :nm "q" #'freedom/evil-quit
       :nmv "Q" #'evil-record-macro
       :nmv "C-s" #'consult-line
+      :nmv "\"" #'consult-yank-pop
       :v "q" #'evil-escape
  ;; :map (c-mode-map python-mode-map)
  ;; :nm "gd" #'dumb-jump-go
@@ -196,5 +194,6 @@
        :desc "对齐代码"  "SPC"   #'align-regexp)
       )
 (server-start)
+
 ;; doom version commit
 ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
