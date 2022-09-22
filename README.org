@@ -1,0 +1,44 @@
+#+title: Install
+#+author: ISouthRain
+#+date: <2022-08-31 周三>
+
+* Font
+- https://www.cufonfonts.com/font/cmu-typewriter-text
+- https://github.com/be5invis/Sarasa-Gothic/releases/download/v0.37.1/sarasa-gothic-ttf-0.37.1.7z
+  下载下来后区分 cjk 对应语言, 也可全部安装(浪费存储空间)
+- https://github.com/be5invis/Iosevka/releases/download/v16.1.0/ttf-iosevka-16.1.0.zip
+- https://github.com/lxgw/LxgwWenKai/releases/download/v1.235.2/lxgw-wenkai-v1.235.2.zip
+- https://github.com/BurntSushi/ripgrep/releases
+- M-x all-the-icons-install-fhonts
+* Require
+#+BEGIN_SRC elisp
+(when freedom/is-termux
+  ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
+  (shell-command "git clone https://github.com/doomemacs/doomemacs ~/.emacs.d")
+  (shell-command "pkg install clang sqlite ripgrep unzip")
+  )
+#+END_SRC
+* pdf TOOL 安装
+#+begin_src bash
+sudo apt install libpng-dev zlib1g-dev libpoppler-glib-dev imagemagick
+#+end_src
+** 回到 emacs 运行以下命令
+  #+begin_src elisp
+   pdf-tools-install
+  #+end_src
+- 检查是否可用
+  #+begin_src elisp
+  pdf-info-check-epdfinfo
+  #+end_src
+* telega Install, tdlib 1.8.4, 如果不是从 straight or melpa 安装 emacs telega package, 记得到 telega package 构建
+  #+BEGIN_SRC bash
+  sudo apt install openssl cmake gperf
+  git clone https://github.com/tdlib/td
+  cd td
+  git checkout b447c32fe94c3d62d74c6b9608649c791641c3e5 # tdlib 1.8.4
+  mkdir build
+  cd build
+  cmake -DCMAKE_BUILD_TYPE=Release ..
+  cmake --build .
+  make install
+  #+END_SRC
