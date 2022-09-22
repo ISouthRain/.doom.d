@@ -81,4 +81,28 @@
                (change-theme +list-light-theme
                              +list-dark-theme)))
   )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 窗口透明
+(defun sanityinc/adjust-opacity (frame incr)
+  "Adjust the background opacity of FRAME by increment INCR."
+  (unless (display-graphic-p frame)
+    (error "Cannot adjust opacity of this frame"))
+  (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
+         (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
+         (newalpha (+ incr oldalpha)))
+    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
+      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
+(defhydra hydra-freedom-AdjustOpacity(:color pink
+                                     :hint nil
+                                     :foreign-keys warn ;; 不要使用hydra以外的键
+                                     )
+  "
+_j_: 增加 _k_: 减少 _g_: 重置
+"
+  ("j"  (sanityinc/adjust-opacity nil 2) :exit nil)
+  ("k"  (sanityinc/adjust-opacity nil -2) :exit nil)
+  ("g"  (modify-frame-parameters nil `((alpha . 100))) :exit nil)
+  ("q" nil "cancel")
+  ("<escape>" nil "cancel")
+  )
 (provide 'init-basic)

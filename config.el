@@ -193,6 +193,15 @@
       (:prefix-map ("c" . "code")
        :desc "对齐代码"  "SPC"   #'align-regexp)
       )
+
+;; (defun kb/toggle-window-transparency ()
+;;   "Toggle transparency."
+;;   (interactive)
+;;   (let ((alpha-transparency 50))
+;;     (pcase (frame-parameter nil 'alpha-background)
+;;       (alpha-transparency (set-frame-parameter nil 'alpha-background 100))
+;;       (t (set-frame-parameter nil 'alpha-background alpha-transparency)))))
+
 (server-start)
 
 ;; doom version commit
