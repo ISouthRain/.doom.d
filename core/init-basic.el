@@ -105,4 +105,5 @@ _j_: 增加 _k_: 减少 _g_: 重置
   ("q" nil "cancel")
   ("<escape>" nil "cancel")
   )
+
 (provide 'init-basic)

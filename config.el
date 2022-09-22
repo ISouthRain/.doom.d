@@ -204,5 +204,6 @@
 
 (server-start)
 
+
 ;; doom version commit
 ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
