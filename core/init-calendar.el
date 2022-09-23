@@ -39,6 +39,7 @@
   (setq calendar-mark-holidays-flag t
         cal-china-x-important-holidays cal-china-x-chinese-holidays
         cal-china-x-general-holidays '((holiday-lunar 1 15 "元宵节")
+                                       (holiday-fixed 1 1 "春节")
                                        (holiday-fixed 3 8 "妇女节")
                                        (holiday-fixed 3 12 "植树节")
                                        (holiday-fixed 5 4 "青年节")
@@ -62,6 +63,7 @@
         calendar-holidays (append cal-china-x-important-holidays
                                   cal-china-x-general-holidays
                                   holiday-other-holidays
-                                  holiday-custom-holidays)))
+                                  holiday-custom-holidays
+                                  )))
 
 (provide 'init-calendar)

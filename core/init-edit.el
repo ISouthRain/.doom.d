@@ -19,8 +19,7 @@
 ;; (use-package aggressive-indent
 ;;   :defer 3
 ;;   :load-path "~/.doom.d/core/plugins"
-;;   :hook (elisp-mode . aggressive-indent-mode)
-;;   :config
+;;   ;; :config
 ;;   ;; (global-aggressive-indent-mode 1)
 ;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
