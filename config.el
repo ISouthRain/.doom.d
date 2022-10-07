@@ -96,9 +96,11 @@
   ;; 调整启动时窗口位置/大小/最大化/全屏
   (set-face-attribute 'default nil :height 122)
   (setq initial-frame-alist
-        '((top . 10) (left . 450) (width . 100) (height . 39)));; 39 ==> 43
+        ;; '((top . 10) (left . 450) (width . 100) (height . 39)));; 39 ==> 43
+        '((top . 10) (left . 450) (width . 90) (height . 36)));; 39 ==> 43
   ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
   ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
+(setq doom-font (font-spec :family "Iosevka" :size 22 :weight 'light))
   )
 (if freedom/is-linux
     (when (not freedom/is-termux)
@@ -119,11 +121,11 @@
 (+global-word-wrap-mode t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 解决 server-start deamon 乱码问题
-;; (when (eq system-type 'windows-nt)
-;;   (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
-;;   (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
-;;   (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
-;;   )
+(when (eq system-type 'windows-nt)
+  (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+  (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
+  (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 代理
 (setq url-proxy-services '(

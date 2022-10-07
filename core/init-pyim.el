@@ -7,6 +7,7 @@
   :config
   (pyim-basedict-enable);; 为 pyim 添加词库
   ;; (pyim-default-scheme 'xiaohe-shuangpin) ;;
+  (pyim-default-scheme 'pyim-shuangpin)
   (setq pyim-page-length 5)
   (setq pyim-page-tooltip '(posframe popup minibuffer))
   (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。
