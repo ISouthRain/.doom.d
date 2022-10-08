@@ -75,7 +75,8 @@
   :defer 3
   :load-path "~/.doom.d/core/plugins/"
   :config
-  (setq insert-translated-name-translate-engine "google");; ;google  youdao
+  ;; (setq insert-translated-name-translate-engine "google");; ;google  youdao
+  (setq insert-translated-name-translate-engine "youdao");; ;google  youdao
   (defun freedom-english-translate ()
     (interactive))
   (advice-add #'freedom-english-translate :override #'insert-translated-name-insert)
