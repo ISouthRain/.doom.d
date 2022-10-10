@@ -7,7 +7,7 @@
   :config
   (pyim-basedict-enable);; 为 pyim 添加词库
   ;; (pyim-default-scheme 'xiaohe-shuangpin) ;;
-  (pyim-default-scheme 'pyim-shuangpin)
+  ;; (pyim-default-scheme 'pyim-shuangpin)
   (setq pyim-page-length 5)
   (setq pyim-page-tooltip '(posframe popup minibuffer))
   (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。
@@ -51,6 +51,56 @@
   (setq pyim-cloudim 'baidu)
   ;; 设置PYIM图标
   (setq pyim-title "🌲 ")
+
+(pyim-scheme-add
+ '(ziranma-shuangpin
+   :document "自然码双拼输入方案"
+   :class shuangpin
+   :first-chars "abcdefghijklmnpqrstuvwxyz"
+   :rest-chars "abcdefghijklmnopqrstuvwxyz"
+   :prefer-triggers nil
+   :keymaps
+   (("a" "a" "a")
+    ("b" "b" "ou")
+    ("c" "c" "iao")
+    ("d" "d" "iang" "uang")
+    ("e" "e" "e")
+    ("f" "f" "en")
+    ("g" "g" "eng")
+    ("h" "h" "ang")
+    ("i" "ch" "i")
+    ("j" "j" "an")
+    ("k" "k" "ao")
+    ("l" "l" "ai")
+    ("m" "m" "ian")
+    ("n" "n" "in")
+    ("o" "o" "uo" "o")
+    ("p" "p" "un")
+    ("q" "q" "iu")
+    ("r" "r" "uan")
+    ("s" "s" "iong" "ong")
+    ("t" "t" "ue" "ve")
+    ("u" "sh" "u")
+    ("v" "zh" "v" "ui")
+    ("w" "w" "ia" "ua")
+    ("x" "x" "ie")
+    ("y" "y" "ing" "uai")
+    ("z" "z" "ei")
+    ("aa" "a")
+    ("ai" "ai")
+    ("ah" "ang")
+    ("ao" "ao")
+    ("an" "an")
+    ("ee" "e")
+    ("ei" "ei")
+    ("en" "en")
+    ("eg" "eng")
+    ("er" "er")
+    ("oo" "o")
+    ("ou" "ou")
+    )))
+  (pyim-default-scheme 'ziranma-shuangpin)
+
   );; pyim
 
 (provide 'init-pyim)
