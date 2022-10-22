@@ -20,9 +20,9 @@
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
-(setq doom-font (font-spec :family "Iosevka" :size 20 :weight 'light)
+;; (setq doom-font (font-spec :family "Iosevka" :size 20 :weight 'light)
       ;; doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
-      )
+      ;; )
 ;; (setq doom-font (font-spec :family "JetBrains Mono" :weight 'light :size 20)
 ;;       doom-variable-pitch-font (font-spec :family "CMU Typewriter Text")
 ;;       doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
@@ -105,8 +105,9 @@
 (if freedom/is-linux
     (when (not freedom/is-termux)
       (set-face-attribute 'default nil :height 130)
+      (setq doom-font (font-spec :family "Iosevka" :size 22 :weight 'light))
       (setq initial-frame-alist
-            '((top . 1) (left . 450) (width . 100) (height . 48)))
+            '((top . 1) (left . 450) (width . 95) (height . 34)))
       ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
       ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
       )
@@ -187,13 +188,13 @@
       :nmv "C-s" #'consult-line
       :nmv "\"" #'consult-yank-pop
       :v "q" #'evil-escape
- ;; :map (c-mode-map python-mode-map)
- ;; :nm "gd" #'dumb-jump-go
       :leader
       (:prefix-map ("f" . "file")
-       :desc "Translate text"  "y"   #'gts-do-translate)
+       :desc "Translate text"  "y" #'gts-do-translate)
       (:prefix-map ("c" . "code")
-       :desc "对齐代码"  "SPC"   #'align-regexp)
+       :desc "对齐代码"  "SPC"     #'align-regexp)
+      (:prefix-map ("w" . "+window")
+       :desc "ace-winodw"  "w"     #'ace-window)
       )
 
 ;; (defun kb/toggle-window-transparency ()
@@ -204,8 +205,8 @@
 ;;       (alpha-transparency (set-frame-parameter nil 'alpha-background 100))
 ;;       (t (set-frame-parameter nil 'alpha-background alpha-transparency)))))
 
-(server-start)
 
+(server-start)
 
 ;; doom version commit
 ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61

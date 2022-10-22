@@ -59,3 +59,5 @@
 (package! telega :pin "66e83c8674042d47bf2cada05192f3d0b7e967a1");; 1.8.0
 (package! theme-changer :pin "57b8c579f134374a45bec9043feff6b29bb4f108")
 (package! calibredb :recipe (:host github :repo "chenyanming/calibredb.el" :files ("*.el")) :pin "2f2cfc38f2d1c705134b692127c3008ac1382482")
+(package! rime :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("*.el" "Makefile" "lib.c")) :pin "3eeef9c445fa056a4b32137f9ef72c27ced2d4ab")
+(package! doom-modeline :pin "ce9899f00af40edb78f58b9af5c3685d67c8eed2")
