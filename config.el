@@ -20,9 +20,6 @@
 ;;
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
-;; (setq doom-font (font-spec :family "Iosevka" :size 20 :weight 'light)
-      ;; doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
-      ;; )
 ;; (setq doom-font (font-spec :family "JetBrains Mono" :weight 'light :size 20)
 ;;       doom-variable-pitch-font (font-spec :family "CMU Typewriter Text")
 ;;       doom-unicode-font (font-spec :family "LXGW Wenkai Mono" )
@@ -37,7 +34,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+;; (setq doom-theme 'doom-one)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -119,7 +116,8 @@
   ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
   )
 ;; 自动换行
-(+global-word-wrap-mode t)
+(if (not freedom/is-termux)
+    (+global-word-wrap-mode t))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 解决 server-start deamon 乱码问题
 (when (eq system-type 'windows-nt)
@@ -193,8 +191,6 @@
        :desc "Translate text"  "y" #'gts-do-translate)
       (:prefix-map ("c" . "code")
        :desc "对齐代码"  "SPC"     #'align-regexp)
-      (:prefix-map ("w" . "+window")
-       :desc "ace-winodw"  "w"     #'ace-window)
       )
 
 ;; (defun kb/toggle-window-transparency ()
@@ -204,7 +200,6 @@
 ;;     (pcase (frame-parameter nil 'alpha-background)
 ;;       (alpha-transparency (set-frame-parameter nil 'alpha-background 100))
 ;;       (t (set-frame-parameter nil 'alpha-background alpha-transparency)))))
-
 
 (server-start)
 
