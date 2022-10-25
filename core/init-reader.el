@@ -36,12 +36,12 @@
   (when (not freedom/is-linux)
     (setq telega-proxies (list '(:server "127.0.0.1" :port 7890 :enable t
                                  :type (:@type "proxyTypeSocks5")))))
-  ;; (setq telega-use-images nil
-  ;;       telega-chat-show-avatars nil
-  ;;       telega-active-locations-show-avatars nil
-  ;;       telega-company-username-show-avatars nil
-  ;;       telega-root-show-avatars nil
-  ;;       telega-user-show-avatars nil)
+  (setq telega-use-images nil
+        telega-chat-show-avatars nil
+        telega-active-locations-show-avatars nil
+        telega-company-username-show-avatars nil
+        telega-root-show-avatars nil
+        telega-user-show-avatars nil)
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; nov Novel reader

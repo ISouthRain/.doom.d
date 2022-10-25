@@ -55,8 +55,8 @@
 (package! pyim :pin "6b4cea1b541f5efd18067d4cafa1ca4b059a0c63")
 (package! pyim-basedict :pin "4aa30ff9f83cf6435230a987d323e48230f1f40e")
 (package! nov :pin "ea0c835c1b5e6e70293f4bd64e9c89bdc42f8596")
-;; (package! telega :pin "42a0dd0e30a82a8e34eaccf6e7a1366f4621d49d");; 1.8.4
-(package! telega :pin "66e83c8674042d47bf2cada05192f3d0b7e967a1");; 1.8.0
+(package! telega :pin "42a0dd0e30a82a8e34eaccf6e7a1366f4621d49d");; 1.8.4
+;; (package! telega :pin "66e83c8674042d47bf2cada05192f3d0b7e967a1");; 1.8.0
 (package! theme-changer :pin "57b8c579f134374a45bec9043feff6b29bb4f108")
 (package! calibredb :recipe (:host github :repo "chenyanming/calibredb.el" :files ("*.el")) :pin "2f2cfc38f2d1c705134b692127c3008ac1382482")
 (package! rime :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("*.el" "Makefile" "lib.c")) :pin "3eeef9c445fa056a4b32137f9ef72c27ced2d4ab")

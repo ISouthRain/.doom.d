@@ -1,32 +1,34 @@
 ;;; core/init-org.el -*- lexical-binding: t; -*-
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; cnfonts Org-mode 中英文字体对齐
-;; (when (not freedom/is-termux)
-;;   (use-package cnfonts
-;;     :load-path "~/.doom.d/core/plugins/cnfonts"
-;;     :defer 2
-;;     :init
-;;     (when freedom/is-windows
-;;       (setq cnfonts-directory (expand-file-name ".local/cnfonts/windows" doom-user-dir)))
-;;     (when freedom/is-linux
-;;       (setq cnfonts-directory (expand-file-name ".local/cnfonts/linux" doom-user-dir)))
-;;     (when freedom/is-darwin
-;;       (setq cnfonts-directory (expand-file-name ".local/cnfonts/darwin" doom-user-dir)))
-;;     :custom
-;;     (cnfonts-personal-fontnames '(("Consolas" "Constantia" "PragmataPro Mono Liga" "Go Mono" "Fira Code" "Ubuntu Mono" "SF Mono");; 英文
-;;                                   ("微软雅黑" "Sarasa Mono SC Nerd" "M 盈黑 PRC W5" "方正聚珍新仿简繁" "苹方 常规" "苹方 中等" "M 盈黑 PRC W4" "PragmataPro Mono Liga");; 中文
-;;                                   ("Simsun-ExtB" "方正聚珍新仿简繁" "PragmataPro Mono Liga");; EXT-B
-;;                                   ("Segoe UI Symbol" "PragmataPro Mono Liga")));; 字符
-;;     :config
-;;     (setq cnfonts-profiles
-;;           '("program" "org-mode" "read-book"))
-;;     (when (not freedom/is-termux)
-;;       (cnfonts-mode)
-;;       (cnfonts-set-font)
-;;       )
-;;     )
-;;   )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org 通知设置
+(use-package! appt
+  :defer 3
+  :after org
+  :config
+  ;; 每小时同步一次appt,并且现在就开始同步
+  (run-at-time nil 3600 'org-agenda-to-appt)
+  ;; 更新agenda时，同步appt
+  (add-hook 'org-agenda-finalize-hook 'org-agenda-to-appt)
+  ;; 激活提醒
+  (appt-activate 1)
+  ;; 提前1分钟提醒, 单位: 分
+  (setq appt-message-warning-time 1)
+  (setq appt-audible t)
+  ;;提醒间隔, 单位: 分
+  (setq appt-display-interval 5)
+  (require 'notifications)
+  (defun appt-disp-window-and-notification (min-to-appt current-time appt-msg)
+    (let ((title (format "%s分钟内有新的任务" min-to-appt)))
+      (notifications-notify :timeout (* appt-display-interval 60000) ;一直持续到下一次提醒
+                            :title title
+                            :body appt-msg
+                            )
+      (appt-disp-window min-to-appt current-time appt-msg))) ;同时也调用原有的提醒函数
+  (setq appt-display-format 'window) ;; 只有这样才能使用自定义的通知函数
+  (setq appt-disp-window-function #'appt-disp-window-and-notification)
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org 设置
 (after! org
@@ -157,7 +159,9 @@
              "+  %?" :kill-buffer t :prepend 1)
             ))
     )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (add-to-list 'org-capture-templates '("z" "账单"));;与上面的账单相对应
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (defun get-year-and-month ()
     (list (format-time-string "%Y") (format-time-string "%Y-%m")))
   (defun find-month-tree ()
@@ -190,7 +194,6 @@
       (((class color) (min-colors 88) (background dark))
        :foreground "#ff8059"))
     "My bold emphasis for Org.")
-
   (defface my-org-emphasis-italic
     '((default :inherit italic)
       (((class color) (min-colors 88) (background light))
@@ -198,7 +201,6 @@
       (((class color) (min-colors 88) (background dark))
        :foreground "#44BCAB"))
     "My italic emphasis for Org.")
-
   (defface my-org-emphasis-underline
     '((default :inherit underline)
       (((class color) (min-colors 88) (background light))
@@ -206,14 +208,13 @@
       (((class color) (min-colors 88) (background dark))
        :foreground "#d0bc00"))
     "My underline emphasis for Org.")
-
   (defface my-org-emphasis-strike-through
     '((((class color) (min-colors 88) (background light))
        :strike-through "#972500" :foreground "#505050")
       (((class color) (min-colors 88) (background dark))
        :strike-through "#ef8b50" :foreground "#a8a8a8"))
     "My strike-through emphasis for Org.")
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (setq org-emphasis-alist
         '(("*" my-org-emphasis-bold)
           ("/" my-org-emphasis-italic)
