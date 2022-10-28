@@ -185,6 +185,7 @@
       :nm "q" #'freedom/evil-quit
       :nmv "Q" #'evil-record-macro
       :nmv "C-s" #'consult-line
+      :nmv "/" #'consult-line
       :nmv "\"" #'consult-yank-pop
       :v "q" #'evil-escape
       :leader
