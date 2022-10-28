@@ -180,6 +180,7 @@
 (map! :nmv ";" #'evil-ex
       :nmv "m" #'hydra-bm/body
       :nmv "<f12>" #'dumb-jump-go
+      :nmv "gD" #'better-jumper-jump-backward
       :nmv "f" #'avy-goto-char
       :nm "q" #'freedom/evil-quit
       :nmv "Q" #'evil-record-macro
@@ -191,6 +192,10 @@
        :desc "Translate text"  "y" #'gts-do-translate)
       (:prefix-map ("c" . "code")
        :desc "对齐代码"  "SPC"     #'align-regexp)
+      (:prefix-map ("p" . "project")
+       :desc "ripgre"  "s"     #'projectile-ripgrep
+       :desc "save buffer" "S" #'projectile-save-project-buffers)
+
       )
 
 ;; (defun kb/toggle-window-transparency ()
