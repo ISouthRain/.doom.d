@@ -8,6 +8,17 @@
 ** Daemon
 #+begin_src elisp
 (server-start)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 解决 Windows 系统 server-start deamon 乱码问题
+(use-package! emacs
+  :defer t
+  :config
+  (when (eq system-type 'windows-nt)
+    (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
+    (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
+    (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
+    )
+  )
 #+end_src
 
 ** 区分系统 初始化
@@ -80,21 +91,6 @@
           '((top . 1) (left . 450) (width . 100) (height . 45)))
     ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
     ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
-    )
-  )
-#+end_src
-
-** Daemon 打开文件乱码
-#+begin_src elisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 解决 server-start deamon 乱码问题
-(use-package! emacs
-  :defer t
-  :config
-  (when (eq system-type 'windows-nt)
-    (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
-    (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
-    (setq file-name-coding-system 'gb18030) ; 设置文件名的编码为gb18030
     )
   )
 #+end_src
@@ -499,18 +495,22 @@ _j_: 增加 _k_: 减少 _g_: 重置
 (use-package! appt
   :defer t
   :after org
-  :config
+  :hook (org-agenda-finalize . org-agenda-to-appt)
+  :init
   ;; 每小时同步一次appt,并且现在就开始同步
   (run-at-time nil 3600 'org-agenda-to-appt)
+  :config
   ;; 更新agenda时，同步appt
-  (add-hook 'org-agenda-finalize-hook 'org-agenda-to-appt)
+  ;; (add-hook 'org-agenda-finalize-hook 'org-agenda-to-appt)
   ;; 激活提醒
   (appt-activate 1)
   ;; 提前1分钟提醒, 单位: 分
   (setq appt-message-warning-time 1)
   (setq appt-audible t)
   ;;提醒间隔, 单位: 分
-  (setq appt-display-interval 5)
+  (setq appt-display-interval 5
+        appt-display-duration 20);; 提醒多少秒后消失提醒信息
+
   (require 'notifications)
   (defun appt-disp-window-and-notification (min-to-appt current-time appt-msg)
     (let ((title (format "%s分钟内有新的任务" min-to-appt)))
@@ -521,6 +521,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
       (appt-disp-window min-to-appt current-time appt-msg))) ;同时也调用原有的提醒函数
   (setq appt-display-format 'window) ;; 只有这样才能使用自定义的通知函数
   (setq appt-disp-window-function #'appt-disp-window-and-notification)
+
   )
 #+end_src
 
@@ -1259,6 +1260,7 @@ _c_: remove mark         _C_: remove all
     )
   (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command)
 
+    (setq pyim-cloudim 'baidu)
   ;; 设置光标颜色
   ;; (defun my-pyim-indicator-with-cursor-color (input-method chinese-input-p)
   ;;   (if (not (equal input-method "pyim"))
@@ -1273,7 +1275,6 @@ _c_: remove mark         _C_: remove all
   ;;       (set-cursor-color "blue"))))
   ;; (setq pyim-indicator-list (list #'my-pyim-indicator-with-cursor-color #'pyim-indicator-with-modeline))
   ;; 百度云拼音
-  (setq pyim-cloudim 'baidu)
 
   ;; 添加对 meow 支持
   ;; (defalias 'pyim-probe-meow-normal-mode #'(lambda nil
