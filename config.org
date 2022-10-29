@@ -3,6 +3,8 @@
 ;; doom version commit
 
 ;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
+
+⚠️这是属于个人配置, 请不要随便使用, 可能会导致某些错误⚠️
 ** Daemon
 #+begin_src elisp
 (server-start)
