@@ -38,6 +38,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org mode cycle global
 (after! evil-org
+  :config
   (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
 (provide 'init-evil)

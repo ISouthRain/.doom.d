@@ -4,7 +4,7 @@
 # --
 #+TITLE: $1
 #+OPTIONS: author:nil
-#+HUGO_BASE_DIR: ~/Ubuntu/ubuntu-fs/root/Hugo
+#+HUGO_BASE_DIR: ../
 #+HUGO_SECTION: posts/
 #+HUGO_CATEGORIES: ${2:分类1 分类2}
 #+HUGO_TAGS: ${3:Tags1 Tags2}
@@ -14,6 +14,6 @@
 #+HUGO_AUTO_SET_LASTMOD: t
 #+HUGO_DRAFT: false
 #+HUGO_WEIGHT: 1
-#+SETUPFILE: ~/.emacs.d/org-html-theme-list/org-joshua/style.setup
+#+SETUPFILE: ~/.freedom.d/org-html-theme-list/org-joshua/style.setup
 
 $0
