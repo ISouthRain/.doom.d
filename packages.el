@@ -63,4 +63,4 @@
 ;;(package! doom-modeline :pin "ce9899f00af40edb78f58b9af5c3685d67c8eed2")
 (package! projectile-ripgrep)
 (package! ripgrep)
-(package! meow :pin "4ad1a11d14c8bc0ba4137900c7833fbdacf7bdb3")
+;;(package! meow :pin "4ad1a11d14c8bc0ba4137900c7833fbdacf7bdb3")

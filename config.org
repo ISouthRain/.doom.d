@@ -730,7 +730,7 @@ _c_: remove mark         _C_: remove all
   :defer t
   :init
   (setq url-queue-timeout 30)
-  (setq elfeed-db-directory (concat doom-user-dir ".local/.elfeed/db/"))
+  ;; (setq elfeed-db-directory (concat doom-user-dir ".local/.elfeed/db/"))
   :config
   ;; recentf 排除
   (when recentf-mode

@@ -52,7 +52,6 @@
     ;; 调整启动时窗口位置/大小/最大化/全屏
     (set-face-attribute 'default nil :height 122)
     (setq initial-frame-alist
-          ;; '((top . 10) (left . 450) (width . 100) (height . 39)));; 39 ==> 43
           '((top . 10) (left . 450) (width . 90) (height . 36)));; 39 ==> 43
     ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
     ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
@@ -659,7 +658,7 @@ _c_: remove mark         _C_: remove all
   :defer t
   :init
   (setq url-queue-timeout 30)
-  (setq elfeed-db-directory (concat doom-user-dir ".local/.elfeed/db/"))
+  ;; (setq elfeed-db-directory (concat doom-user-dir ".local/.elfeed/db/"))
   :config
   ;; recentf 排除
   (when recentf-mode
@@ -1220,11 +1219,3 @@ _c_: remove mark         _C_: remove all
        :desc "save buffer" "S" #'projectile-save-project-buffers)
 
       )
-
-  ;; (defun kb/toggle-window-transparency ()
-  ;;   "Toggle transparency."
-  ;;   (interactive)
-  ;;   (let ((alpha-transparency 50))
-  ;;     (pcase (frame-parameter nil 'alpha-background)
-  ;;       (alpha-transparency (set-frame-parameter nil 'alpha-background 100))
-  ;;       (t (set-frame-parameter nil 'alpha-background alpha-transparency)))))
