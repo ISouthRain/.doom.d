@@ -1353,31 +1353,31 @@ _c_: remove mark         _C_: remove all
 
 ** Keymap
 #+begin_src elisp
-(map! :nmv ";" #'evil-ex
-      :nmv "m" #'hydra-bm/body
-      :nmv "<f12>" #'dumb-jump-go
-      :nmv "gD" #'better-jumper-jump-backward
-      :nmv "f" #'avy-goto-char
-      :nm "q" #'freedom/evil-quit
-      :nmv "Q" #'evil-record-macro
-      :nmv "C-s" #'consult-line
-      :nmv "/" #'consult-line
-      :nmv "\"" #'consult-yank-pop
-      :v "q" #'evil-escape
-      :leader
-      (:prefix-map ("f" . "file")
-       :desc "Translate text"  "y" #'gts-do-translate)
-      (:prefix-map ("c" . "code")
-       :desc "对齐代码"  "SPC"     #'align-regexp)
-      (:prefix-map ("p" . "project")
-       :desc "ripgre"  "s"     #'projectile-ripgrep
-       :desc "save buffer" "S" #'projectile-save-project-buffers)
+;; (map! :nmv ";" #'evil-ex
+;;       :nmv "m" #'hydra-bm/body
+;;       :nmv "<f12>" #'dumb-jump-go
+;;       :nmv "gD" #'better-jumper-jump-backward
+;;       :nmv "f" #'avy-goto-char
+;;       :nm "q" #'freedom/evil-quit
+;;       :nmv "Q" #'evil-record-macro
+;;       :nmv "C-s" #'consult-line
+;;       :nmv "/" #'consult-line
+;;       :nmv "\"" #'consult-yank-pop
+;;       :v "q" #'evil-escape
+;;       :leader
+;;       (:prefix-map ("f" . "file")
+;;        :desc "Translate text"  "y" #'gts-do-translate)
+;;       (:prefix-map ("c" . "code")
+;;        :desc "对齐代码"  "SPC"     #'align-regexp)
+;;       (:prefix-map ("p" . "project")
+;;        :desc "ripgre"  "s"     #'projectile-ripgrep
+;;        :desc "save buffer" "S" #'projectile-save-project-buffers)
 
-      )
+;;       )
 #+end_src
 
 ** Meow
-
+#+begin_src elisp
 (use-package! meow
   :config
   (defun meow/setup-leader ()
@@ -1397,13 +1397,14 @@ _c_: remove mark         _C_: remove all
 
   (defun meow/setup-doom-keybindings()
     (map! :map meow-normal-state-keymap
-          doopm-leader-key doom-leader-map)
+          doom-leader-key doom-leader-map)
     (map! :map meow-motion-state-keymap
           doom-leader-key doom-leader-map)
     (map! :map meow-beacon-state-keymap
           doom-leader-key nil)
     (meow/setup-leader)
     )
+
 
   (defun meow-setup ()
     ;; (meow/setup-doom-keybindings)
@@ -1420,35 +1421,35 @@ _c_: remove mark         _C_: remove all
      ;; SPC j/k will run the original command in MOTION state.
      '("j" . "H-j")
      '("k" . "H-k")
-     '("bb" . consult-buffer)
-     '("bi" . ibuffer)
-     '("bk" . kill-this-buffer)
-     ;; '("c SPC" . align-regexp)
-     '("fr" . consult-recent-file)
-     '("fy" . gts-do-translate)
-     '("qR" . restart-emacs)
-     '("qq" . save-buffers-kill-terminal)
-     '("wk" . windmove-up)
-     '("wj" . windmove-down)
-     '("wh" . windmove-left)
-     '("wl" . windmove-right)
-     '("wd" . delete-window)
-     '("ws" . split-window-below)
-     '("wv" . split-window-right)
-     '("ww" . ace-window)
-     '("sp" . consult-ripgrep)
-     '("si" . consult-imenu)
-     '("oa" . org-agenda)
-     '("op" . dired)
-     '("pf" . projectile-find-file)
-     '("pd" . projectile-find-dir)
-     '("ps" . projectile-ripgrep)
-     '("pa" . projectile-add-known-project)
-     '("pb" . projectile-switch-to-buffer)
-     '("pS" . projectile-switch-project)
-     '("nn" . org-capture)
-     '("nrf" . org-roam-node-find)
-     '("nrs" . org-roam-db-sync)
+     ;; '("bb" . consult-buffer)
+     ;; '("bi" . ibuffer)
+     ;; '("bk" . kill-this-buffer)
+     ;; ;; '("c SPC" . align-regexp)
+     ;; '("fr" . consult-recent-file)
+     ;; '("fy" . gts-do-translate)
+     ;; '("qR" . restart-emacs)
+     ;; '("qq" . save-buffers-kill-terminal)
+     ;; '("wk" . windmove-up)
+     ;; '("wj" . windmove-down)
+     ;; '("wh" . windmove-left)
+     ;; '("wl" . windmove-right)
+     ;; '("wd" . delete-window)
+     ;; '("ws" . split-window-below)
+     ;; '("wv" . split-window-right)
+     ;; '("ww" . ace-window)
+     ;; '("sp" . consult-ripgrep)
+     ;; '("si" . consult-imenu)
+     ;; '("oa" . org-agenda)
+     ;; '("op" . dired)
+     ;; '("pf" . projectile-find-file)
+     ;; '("pd" . projectile-find-dir)
+     ;; '("ps" . projectile-ripgrep)
+     ;; '("pa" . projectile-add-known-project)
+     ;; '("pb" . projectile-switch-to-buffer)
+     ;; '("pS" . projectile-switch-project)
+     ;; '("nn" . org-capture)
+     ;; '("nrf" . org-roam-node-find)
+     ;; '("nrs" . org-roam-db-sync)
      ;; Use SPC (0-9) for digit arguments.
      '("1" . meow-digit-argument)
      '("2" . meow-digit-argument)
@@ -1517,7 +1518,7 @@ _c_: remove mark         _C_: remove all
      '("R" . meow-swap-grab)
      '("s" . meow-clipboard-kill)
      '("t" . meow-till)
-     '("u" . undo-tree-undo)
+     '("u" . meow-undo)
      '("U" . meow-undo-in-selection)
      ;;'("v" . meow-visit)
      '("v" . +meow-visual)
@@ -1535,16 +1536,24 @@ _c_: remove mark         _C_: remove all
      '("=" . meow-indent)
      '(">" . indent-rigidly-right)
      '("<" . indent-rigidly-left)
-     '("C-r" . undo-tree-redo)
+     '("C-r" . evil-redo)
      '("\"" . consult-yank-pop)
      '("<f12>" . dumb-jump-go)
      ;; '("<escape>" . ignore)
      '("<escape>" . meow-cancel-selection)
      ))
-  (meow-setup)
-  (meow-global-mode 1)
+
   (setq meow-expand-hint-remove-delay 3
         meow-use-clipboard t)
+  (setq meow-keypad-leader-dispatch "C-c"
+        meow-keypad-meta-prefix ?M
+        meow-keypad-ctrl-meta-prefix ?G
+        meow-expand-exclude-mode-list nil
+        meow-expand-hint-remove-delay 1024
+        )
+
+  (meow-setup)
+  (meow-global-mode 1)
 
 
   (defun +meow-insert-chord-two (s otherfunction keydelay)
@@ -1580,14 +1589,16 @@ _c_: remove mark         _C_: remove all
   (defun +meow-insert-exit ()
     (interactive)
     (meow-insert-exit)
-    (corfu-quit))
+    )
 
   (defun +meow-visual ()
     (interactive)
     (meow-left-expand)
     (meow-right-expand))
 
+
+
+
   )
 
-
-
+#+end_src
