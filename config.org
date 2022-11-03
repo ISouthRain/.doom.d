@@ -1353,31 +1353,30 @@ _c_: remove mark         _C_: remove all
 
 ** Keymap
 #+begin_src elisp
-;; (map! :nmv ";" #'evil-ex
-;;       :nmv "m" #'hydra-bm/body
-;;       :nmv "<f12>" #'dumb-jump-go
-;;       :nmv "gD" #'better-jumper-jump-backward
-;;       :nmv "f" #'avy-goto-char
-;;       :nm "q" #'freedom/evil-quit
-;;       :nmv "Q" #'evil-record-macro
-;;       :nmv "C-s" #'consult-line
-;;       :nmv "/" #'consult-line
-;;       :nmv "\"" #'consult-yank-pop
-;;       :v "q" #'evil-escape
-;;       :leader
-;;       (:prefix-map ("f" . "file")
-;;        :desc "Translate text"  "y" #'gts-do-translate)
-;;       (:prefix-map ("c" . "code")
-;;        :desc "对齐代码"  "SPC"     #'align-regexp)
-;;       (:prefix-map ("p" . "project")
-;;        :desc "ripgre"  "s"     #'projectile-ripgrep
-;;        :desc "save buffer" "S" #'projectile-save-project-buffers)
+(map! :nmv ";" #'evil-ex
+      :nmv "m" #'hydra-bm/body
+      :nmv "<f12>" #'dumb-jump-go
+      :nmv "gD" #'better-jumper-jump-backward
+      :nmv "f" #'avy-goto-char
+      :nm "q" #'freedom/evil-quit
+      :nmv "Q" #'evil-record-macro
+      :nmv "C-s" #'consult-line
+      :nmv "/" #'consult-line
+      :nmv "\"" #'consult-yank-pop
+      :v "q" #'evil-escape
+      :leader
+      (:prefix-map ("f" . "file")
+       :desc "Translate text"  "y" #'gts-do-translate)
+      (:prefix-map ("c" . "code")
+       :desc "对齐代码"  "SPC"     #'align-regexp)
+      (:prefix-map ("p" . "project")
+       :desc "ripgre"  "s"     #'projectile-ripgrep
+       :desc "save buffer" "S" #'projectile-save-project-buffers)
 
-;;       )
+      )
 #+end_src
 
 ** Meow
-#+begin_src elisp
 (use-package! meow
   :config
   (defun meow-setup ()
@@ -1462,7 +1461,7 @@ _c_: remove mark         _C_: remove all
      '("R" . meow-swap-grab)
      '("s" . meow-clipboard-kill)
      '("t" . meow-till)
-     '("u" . meow-undo)
+     '("u" . undo-fu-only-undo)
      '("U" . meow-undo-in-selection)
      '("v" . +meow-visual)
      '("w" . meow-mark-word)
@@ -1479,10 +1478,9 @@ _c_: remove mark         _C_: remove all
      '("=" . meow-indent)
      '(">" . indent-rigidly-right)
      '("<" . indent-rigidly-left)
-     '("C-r" . evil-redo)
+     '("C-r" . undo-fu-only-redo)
      '("\"" . consult-yank-pop)
      '("<f12>" . dumb-jump-go)
-     ;; '("<escape>" . ignore)
      '("<escape>" . meow-cancel-selection)
      ))
 
@@ -1527,6 +1525,7 @@ _c_: remove mark         _C_: remove all
     (+meow-insert-chord-two "jk" #'meow-insert-exit 0.5))
   (define-key meow-insert-state-keymap (substring "jk" 0 1)
     #'+meow-chord-insert-exit)
+
   (defun +meow-visual ()
     (interactive)
     (meow-left-expand)
@@ -1589,4 +1588,3 @@ _c_: remove mark         _C_: remove all
         );; map!
 
   )
-#+end_src
