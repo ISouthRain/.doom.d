@@ -1380,34 +1380,7 @@ _c_: remove mark         _C_: remove all
 #+begin_src elisp
 (use-package! meow
   :config
-  (defun meow/setup-leader ()
-    (map! :leader
-          "?" #'meow-cheatsheet
-          "/" #'meow-keypad-describe-key
-          "1" #'meow-digit-argument
-          "2" #'meow-digit-argument
-          "3" #'meow-digit-argument
-          "4" #'meow-digit-argument
-          "5" #'meow-digit-argument
-          "6" #'meow-digit-argument
-          "7" #'meow-digit-argument
-          "8" #'meow-digit-argument
-          "9" #'meow-digit-argument
-          "0" #'meow-digit-argument))
-
-  (defun meow/setup-doom-keybindings()
-    (map! :map meow-normal-state-keymap
-          doom-leader-key doom-leader-map)
-    (map! :map meow-motion-state-keymap
-          doom-leader-key doom-leader-map)
-    (map! :map meow-beacon-state-keymap
-          doom-leader-key nil)
-    (meow/setup-leader)
-    )
-
-
   (defun meow-setup ()
-    ;; (meow/setup-doom-keybindings)
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
     (meow-motion-overwrite-define-key
      '("j" . meow-next)
@@ -1421,35 +1394,6 @@ _c_: remove mark         _C_: remove all
      ;; SPC j/k will run the original command in MOTION state.
      '("j" . "H-j")
      '("k" . "H-k")
-     ;; '("bb" . consult-buffer)
-     ;; '("bi" . ibuffer)
-     ;; '("bk" . kill-this-buffer)
-     ;; ;; '("c SPC" . align-regexp)
-     ;; '("fr" . consult-recent-file)
-     ;; '("fy" . gts-do-translate)
-     ;; '("qR" . restart-emacs)
-     ;; '("qq" . save-buffers-kill-terminal)
-     ;; '("wk" . windmove-up)
-     ;; '("wj" . windmove-down)
-     ;; '("wh" . windmove-left)
-     ;; '("wl" . windmove-right)
-     ;; '("wd" . delete-window)
-     ;; '("ws" . split-window-below)
-     ;; '("wv" . split-window-right)
-     ;; '("ww" . ace-window)
-     ;; '("sp" . consult-ripgrep)
-     ;; '("si" . consult-imenu)
-     ;; '("oa" . org-agenda)
-     ;; '("op" . dired)
-     ;; '("pf" . projectile-find-file)
-     ;; '("pd" . projectile-find-dir)
-     ;; '("ps" . projectile-ripgrep)
-     ;; '("pa" . projectile-add-known-project)
-     ;; '("pb" . projectile-switch-to-buffer)
-     ;; '("pS" . projectile-switch-project)
-     ;; '("nn" . org-capture)
-     ;; '("nrf" . org-roam-node-find)
-     ;; '("nrs" . org-roam-db-sync)
      ;; Use SPC (0-9) for digit arguments.
      '("1" . meow-digit-argument)
      '("2" . meow-digit-argument)
@@ -1520,7 +1464,6 @@ _c_: remove mark         _C_: remove all
      '("t" . meow-till)
      '("u" . meow-undo)
      '("U" . meow-undo-in-selection)
-     ;;'("v" . meow-visit)
      '("v" . +meow-visual)
      '("w" . meow-mark-word)
      '("W" . meow-mark-symbol)
@@ -1543,19 +1486,17 @@ _c_: remove mark         _C_: remove all
      '("<escape>" . meow-cancel-selection)
      ))
 
-  (setq meow-expand-hint-remove-delay 3
-        meow-use-clipboard t)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (setq meow-keypad-leader-dispatch "C-c"
         meow-keypad-meta-prefix ?M
         meow-keypad-ctrl-meta-prefix ?G
         meow-expand-exclude-mode-list nil
         meow-expand-hint-remove-delay 1024
+        meow-use-clipboard t
         )
-
   (meow-setup)
   (meow-global-mode 1)
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (defun +meow-insert-chord-two (s otherfunction keydelay)
     "类似 key-chord 功能"
     (when (meow-insert-mode-p)
@@ -1583,22 +1524,69 @@ _c_: remove mark         _C_: remove all
     #'+meow-chord-pyim)
   (defun +meow-chord-insert-exit ()
     (interactive)
-    (+meow-insert-chord-two "jk" #'+meow-insert-exit 0.5))
+    (+meow-insert-chord-two "jk" #'meow-insert-exit 0.5))
   (define-key meow-insert-state-keymap (substring "jk" 0 1)
     #'+meow-chord-insert-exit)
-  (defun +meow-insert-exit ()
-    (interactive)
-    (meow-insert-exit)
-    )
-
   (defun +meow-visual ()
     (interactive)
     (meow-left-expand)
     (meow-right-expand))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; 添加对 meow-normal  支持
+  (defalias 'pyim-probe-meow-normal-mode #'(lambda nil
+                                             (meow-normal-mode-p)))
+  (setq-default pyim-english-input-switch-functions
+                '(pyim-probe-meow-normal-mode))
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+  (map! :leader
+        (:prefix-map ("TAB" . "window")
+         :desc "left" "h" #'windmove-left
+         :desc "right" "l" #'windmove-right
+         :desc "up" "k" #'windmove-up
+         :desc "down" "j" #'windmove-down
+         :desc "split-below" "s" #'split-window-below
+         :desc "split-right" "v" #'split-window-right
+         :desc "delete" "d" #'delete-window
+         :desc "ace-window" "w" #'ace-window
+         )
+         ;;; <leader> b --- buffer
+        (:prefix-map ("b" . "buffer")
+         :desc "Toggle narrowing"            "-"   #'doom/toggle-narrow-buffer
+         :desc "Previous buffer"             "["   #'previous-buffer
+         :desc "Next buffer"                 "]"   #'next-buffer
+         (:when (modulep! :ui workspaces)
+          :desc "Switch workspace buffer" "b" #'persp-switch-to-buffer
+          :desc "Switch buffer"           "B" #'switch-to-buffer
+          :desc "ibuffer workspace"       "I" #'+ibuffer/open-for-current-workspace)
+         (:unless (modulep! :ui workspaces)
+          :desc "Switch buffer"           "b" #'switch-to-buffer)
+         :desc "Clone buffer"                "c"   #'clone-indirect-buffer
+         :desc "Clone buffer other window"   "C"   #'clone-indirect-buffer-other-window
+         :desc "Kill buffer"                 "d"   #'kill-current-buffer
+         :desc "ibuffer"                     "i"   #'ibuffer
+         :desc "Kill buffer"                 "k"   #'kill-current-buffer
+         :desc "Kill all buffers"            "K"   #'doom/kill-all-buffers
+         :desc "Switch to last buffer"       "l"   #'evil-switch-to-windows-last-buffer
+         :desc "Set bookmark"                "m"   #'bookmark-set
+         :desc "Delete bookmark"             "M"   #'bookmark-delete
+         :desc "Next buffer"                 "n"   #'next-buffer
+         :desc "New empty buffer"            "N"   #'evil-buffer-new
+         :desc "Kill other buffers"          "O"   #'doom/kill-other-buffers
+         :desc "Previous buffer"             "p"   #'previous-buffer
+         :desc "Revert buffer"               "r"   #'revert-buffer
+         :desc "Rename buffer"               "R"   #'rename-buffer
+         :desc "Save buffer"                 "s"   #'basic-save-buffer
+         :desc "Save all buffers"            "S"   #'evil-write-all
+         :desc "Save buffer as root"         "u"   #'doom/sudo-save-buffer
+         :desc "Pop up scratch buffer"       "x"   #'doom/open-scratch-buffer
+         :desc "Switch to scratch buffer"    "X"   #'doom/switch-to-scratch-buffer
+         :desc "Yank buffer"                 "y"   #'+default/yank-buffer-contents
+         :desc "Bury buffer"                 "z"   #'bury-buffer
+         :desc "Kill buried buffers"         "Z"   #'doom/kill-buried-buffers)
 
+        );; map!
 
   )
-
 #+end_src
