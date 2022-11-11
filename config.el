@@ -1019,38 +1019,11 @@ nil means disabled."
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package! go-translate
-  ;; :defer-incrementally t
-  :defer t
-  :commands (gts-do-translate)
+(use-package! google-translate
   :config
-  ;; 配置多个翻译语言对
-  (setq gts-translate-list '(("en" "zh") ("fr" "zh")))
-  ;; 设置为 t 光标自动跳转到buffer
-  (setq gts-buffer-follow-p t)
-  ;; (if (display-graphic-p)
-  ;;     (if (posframe-workable-p)
-  ;;         (setq gts-default-translator
-  ;;               (gts-translator
-  ;;                :picker (gts-noprompt-picker)
-  ;;                :engines (list (gts-google-rpc-engine) (gts-bing-engine))
-  ;;                :render (gts-posframe-pop-render :forecolor "#ffffff" :backcolor "#111111")))
-  ;;       ;; :render (gts-posframe-pin-render :width 40 :height 15 :position (cons 1500 20) :forecolor "#ffffff" :backcolor "#111111")))
-  ;;       )
-
-  ;;   (setq gts-default-translator
-  ;;         (gts-translator
-  ;;          :picker (gts-noprompt-picker)
-  ;;          :engines (list (gts-google-rpc-engine) (gts-bing-engine))
-  ;;          :render (gts-buffer-render)))
-  ;;   )
-  (gts-translator
-   :picker (gts-noprompt-picker)
-   :engines (list (gts-google-rpc-engine) (gts-bing-engine))
-   :render (gts-buffer-render))
-
-  );; go-translate
+ (setq google-translate-default-source-language "auto"
+       google-translate-default-target-language "zh-CN")
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 输入中文后自动翻译
@@ -1149,7 +1122,10 @@ nil means disabled."
       :v "q" #'evil-escape
       :leader
       (:prefix-map ("f" . "file")
-       :desc "Translate text"  "y" #'gts-do-translate)
+       ;; :desc "Translate text"  "y" #'gts-do-translate)
+       :desc "Translate text"  "y" #'google-translate-at-point
+       :desc "Translate text"  "Y" #'google-translate-query-translate
+       )
       (:prefix-map ("c" . "code")
        :desc "对齐代码"  "SPC"     #'align-regexp)
       (:prefix-map ("p" . "project")

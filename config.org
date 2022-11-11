@@ -1112,8 +1112,17 @@ nil means disabled."
 #+end_src
 
 *** Translate 翻译
-**** go-translate
+**** google-translate
 #+begin_src emacs-lisp :tangle yes
+(use-package! google-translate
+  :config
+ (setq google-translate-default-source-language "auto"
+       google-translate-default-target-language "zh-CN")
+  )
+#+end_src
+
+**** go-translate
+#+begin_src emacs-lisp :tangle no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package! go-translate
   ;; :defer-incrementally t
@@ -1149,6 +1158,7 @@ nil means disabled."
 #+end_src
 
 **** sdcv
+#+begin_src emacs-lisp :tangle no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; sdcv 翻译
 (when freedom/is-termux
@@ -1187,6 +1197,7 @@ nil means disabled."
 
     )
   )
+#+end_src
 
 **** insert-translated-name
 #+begin_src emacs-lisp :tangle yes
@@ -1367,7 +1378,10 @@ nil means disabled."
       :v "q" #'evil-escape
       :leader
       (:prefix-map ("f" . "file")
-       :desc "Translate text"  "y" #'gts-do-translate)
+       ;; :desc "Translate text"  "y" #'gts-do-translate)
+       :desc "Translate text"  "y" #'google-translate-at-point
+       :desc "Translate text"  "Y" #'google-translate-query-translate
+       )
       (:prefix-map ("c" . "code")
        :desc "对齐代码"  "SPC"     #'align-regexp)
       (:prefix-map ("p" . "project")

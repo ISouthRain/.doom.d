@@ -50,7 +50,6 @@
                                         ;(unpin! t)
 
 (package! org-roam-ui :pin "16a8da9e5107833032893bc4c0680b368ac423ac")
-(package! go-translate :pin "8bbcbce42a7139f079df3e9b9bda0def2cbb690f")
 (package! posframe :pin "0d23bc5f7cfac00277d83ae7ba52c48685bcbc68")
 (package! pyim :pin "6b4cea1b541f5efd18067d4cafa1ca4b059a0c63")
 (package! pyim-basedict :pin "4aa30ff9f83cf6435230a987d323e48230f1f40e")
@@ -61,7 +60,9 @@
 (package! calibredb :recipe (:host github :repo "chenyanming/calibredb.el" :files ("*.el")) :pin "2f2cfc38f2d1c705134b692127c3008ac1382482")
 (package! rime :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("*.el" "Makefile" "lib.c")) :pin "3eeef9c445fa056a4b32137f9ef72c27ced2d4ab")
 ;;(package! doom-modeline :pin "ce9899f00af40edb78f58b9af5c3685d67c8eed2")
-(package! awesome-tray :recipe (:host github :repo "manateelazycat/awesome-tray" :files ("*.el")) :pin "a7b174a8d927c18a32180e9524ee068a7a0547f6")
+;; (package! awesome-tray :recipe (:host github :repo "manateelazycat/awesome-tray" :files ("*.el")) :pin "a7b174a8d927c18a32180e9524ee068a7a0547f6")
 (package! projectile-ripgrep)
 (package! ripgrep)
 (package! meow :pin "4ad1a11d14c8bc0ba4137900c7833fbdacf7bdb3")
+(package! google-translate :pin "e60dd6eeb9cdb931d9d8bfbefc29a48ef9a21bd9")
+;; (package! go-translate :pin "8bbcbce42a7139f079df3e9b9bda0def2cbb690f")
