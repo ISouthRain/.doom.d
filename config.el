@@ -602,7 +602,7 @@ _c_: remove mark         _C_: remove all
 ;; calibre
 (when (not freedom/is-termux)
   (use-package! calibredb
-    :defer t
+    :commands (calibredb)
     :config
     (when freedom/is-linux
       (setq calibredb-root-dir "~/f/CalibreHome")
@@ -624,7 +624,6 @@ _c_: remove mark         _C_: remove all
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; telega
 (use-package! telega
-  :defer t
   :commands (telega)
   ;; :init
   ;; (setq telega-use-docker t) ;; 是否设置为 docker server
@@ -1136,64 +1135,6 @@ nil means disabled."
 
 (setq dumb-jump-force-searcher 'rg)
 (setq dumb-jump-prefer-searcher 'rg)
-
-;; (use-package bongo
-;;   :ensure t
-;;   :bind ("C-<f9>" . bongo)
-;;   :config
-;;   (with-eval-after-load 'dired
-;;     (with-no-warnings
-;;       (defun bongo-add-dired-files ()
-;;         "Add marked files to the Bongo library."
-;;         (interactive)
-;;         (bongo-buffer)
-;;         (let (file (files nil))
-;;           (dired-map-over-marks
-;;            (setq file (dired-get-filename)
-;;                  files (append files (list file)))
-;;            nil t)
-;;           (with-bongo-library-buffer
-;;            (mapc 'bongo-insert-file files)))
-;;         (bongo-switch-buffers))
-;;       (bind-key "b" #'bongo-add-dired-files dired-mode-map)))
-;;   (when freedom/is-windows
-;;     (setq bongo-default-directory "F:\\MyFile\\Music"))
-;;   (when freedom/is-linux
-;;     (setq bongo-default-directory "~/MyFile/Music/"))
-;;   (setq bongo-enabled-backends '(mplayer mpg123))
-;;   )
-
-;; (when (executable-find "mpc")
-;;   (use-package mpc
-;;     :ensure nil
-;;     :bind ("s-<f9>" . mpc)
-;;     :config
-;;     (defun restart-mpd ()
-;;       (interactive)
-;;       (call-process "pkill" nil nil nil "mpd")
-;;       (call-process "mpd"))
-
-;;     (with-no-warnings
-;;       (defun add-mpc-status-to-mode-line ()
-;;         "Display current song in mode line."
-;;         (add-to-list 'global-mode-string '("" mpc-current-song)))
-;;       (advice-add #'mpc :after #'add-mpc-status-to-mode-line))))
-
-;; ;; Simple client for mpd
-;; (when (executable-find "mpc")
-;;   (use-package simple-mpc
-;;     :ensure t
-;;     :bind ("M-<f9>" . simple-mpc)))
-
-;; (use-package emms
-;;   :ensure t
-;;   :commands emms
-;;   :config
-;;   (require 'emms-setup)
-;;   (emms-standard)
-;;   (emms-default-players)
-;;   (emms-mode-line-disable)
-;;   (setq emms-source-file-default-directory "F:\\MyFile\\Music"))
 
 (map! :nmv ";" #'evil-ex
       :nmv "m" #'hydra-bm/body

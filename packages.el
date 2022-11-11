@@ -61,6 +61,7 @@
 (package! calibredb :recipe (:host github :repo "chenyanming/calibredb.el" :files ("*.el")) :pin "2f2cfc38f2d1c705134b692127c3008ac1382482")
 (package! rime :recipe (:host github :repo "DogLooksGood/emacs-rime" :files ("*.el" "Makefile" "lib.c")) :pin "3eeef9c445fa056a4b32137f9ef72c27ced2d4ab")
 ;;(package! doom-modeline :pin "ce9899f00af40edb78f58b9af5c3685d67c8eed2")
+(package! awesome-tray :recipe (:host github :repo "manateelazycat/awesome-tray" :files ("*.el")) :pin "a7b174a8d927c18a32180e9524ee068a7a0547f6")
 (package! projectile-ripgrep)
 (package! ripgrep)
 (package! meow :pin "4ad1a11d14c8bc0ba4137900c7833fbdacf7bdb3")
