@@ -289,7 +289,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;消费
             ("zd" "账单" plain (file+function "F:\\MyFile\\Org\\Bill.org" find-month-tree)
-             " | %<%Y-%m-%d %a %H:%M:%S> | %^{prompt|Breakfast|Lunch|Dinner|Shopping|Night Snack|Fruit|Transportation|Other} | %^{金额} |" :kill-buffer t :immediate-finish t)
+             " | %<%Y-%m-%d %a %H:%M:%S> | %^{prompt|Breakfast|Lunch|Dinner|Shopping|Night Snack|Fruit|Transportation|Other} | %^{支付金额} | %^{收入金额} |" :kill-buffer t :immediate-finish t)
 
             ;;英语单词
             ("e" "英语单词" entry (file+datetree "F:\\MyFile\\Org\\EnglishWord.org")
@@ -329,7 +329,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;消费
             ("zd" "账单" plain (file+function "~/MyFile/Org/Bill.org" find-month-tree)
-             " | %<%Y-%m-%d %a %H:%M:%S> | %^{prompt|Breakfast|Lunch|Dinner|Shopping|Night Snack|Fruit|Transportation|Other} | %^{金额} |" :kill-buffer t :immediate-finish t)
+             " | %<%Y-%m-%d %a %H:%M:%S> | %^{prompt|Breakfast|Lunch|Dinner|Shopping|Night Snack|Fruit|Transportation|Other} | %^{支付金额} | %^{收入金额} |" :kill-buffer t :immediate-finish t)
 
             ;;英语单词
             ("e" "英语单词" entry (file+datetree "~/MyFile/Org/EnglishWord.org")
@@ -366,7 +366,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;消费
             ("zd" "账单" plain (file+function "~/Desktop/MyFile/Org/Bill.org" find-month-tree)
-             " | %<%Y-%m-%d %a %H:%M:%S> | %^{prompt|Breakfast|Lunch|Dinner|Shopping|Night Snack|Fruit|Transportation|Other} | %^{金额} |" :kill-buffer t :immediate-finish t)
+             " | %<%Y-%m-%d %a %H:%M:%S> | %^{prompt|Breakfast|Lunch|Dinner|Shopping|Night Snack|Fruit|Transportation|Other} | %^{支付金额} | %^{收入金额} |" :kill-buffer t :immediate-finish t)
 
             ;;英语单词
             ("e" "英语单词" entry (file+datetree "~/Desktop/MyFile/Org/EnglishWord.org")
@@ -1023,6 +1023,8 @@ nil means disabled."
   :config
  (setq google-translate-default-source-language "auto"
        google-translate-default-target-language "zh-CN")
+ (setq google-translate-translation-directions-alist
+      '(("en" . "zh-CN") ("zh-CN" . "en")))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1123,8 +1125,7 @@ nil means disabled."
       :leader
       (:prefix-map ("f" . "file")
        ;; :desc "Translate text"  "y" #'gts-do-translate)
-       :desc "Translate text"  "y" #'google-translate-at-point
-       :desc "Translate text"  "Y" #'google-translate-query-translate
+       :desc "Translate text"  "y" #'google-translate-smooth-translate
        )
       (:prefix-map ("c" . "code")
        :desc "对齐代码"  "SPC"     #'align-regexp)
