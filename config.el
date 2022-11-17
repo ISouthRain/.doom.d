@@ -599,59 +599,6 @@ _c_: remove mark         _C_: remove all
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; calibre
-(when (not freedom/is-termux)
-  (use-package! calibredb
-    :commands (calibredb)
-    :config
-    (when freedom/is-linux
-      (setq calibredb-root-dir "~/f/CalibreHome")
-      (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
-      (setq calibredb-library-alist '(("~/f/CalibreHome")
-                                      ;; ("~/Documents/Books Library")
-                                      )))
-    (when freedom/is-windows
-      (setq calibredb-root-dir "F:\\CalibreHome")
-      (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir))
-      (setq calibredb-library-alist '(("F:\\CalibreHome")
-                                      ;; ("~/Documents/Books Library")
-                                      )))
-    (setq calibredb-format-all-the-icons t)
-    (setq calibredb-format-icons-in-terminal t)
-    (setq calibredb-format-character-icons t)
-    ))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; telega
-(use-package! telega
-  :commands (telega)
-  ;; :init
-  ;; (setq telega-use-docker t) ;; 是否设置为 docker server
-  :config
-  (when freedom/is-linux
-    (setq telega-proxies (list '(:server "192.168.31.241" :port 7890 :enable t
-                                 :type (:@type "proxyTypeSocks5")))))
-  (when (not freedom/is-linux)
-    (setq telega-proxies (list '(:server "127.0.0.1" :port 7890 :enable t
-                                 :type (:@type "proxyTypeSocks5")))))
-  (setq telega-use-images nil
-        telega-chat-show-avatars nil
-        telega-active-locations-show-avatars nil
-        telega-company-username-show-avatars nil
-        telega-root-show-avatars nil
-        telega-user-show-avatars nil)
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; nov Novel reader
-(use-package! nov
-  :mode ("\\.epub\\'" . nov-mode)
-  :mode ("\\.mobi\\'" . nov-mode)
-  :config
-  (setq nov-save-place-file (concat doom-user-dir ".local/nov-places"))
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; elfeed
 (use-package! elfeed
   :defer t

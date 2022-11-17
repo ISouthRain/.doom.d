@@ -660,7 +660,7 @@ _c_: remove mark         _C_: remove all
 #+end_src
 
 *** calibredb
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; calibre
 (when (not freedom/is-termux)
@@ -686,7 +686,7 @@ _c_: remove mark         _C_: remove all
 #+end_src
 
 *** telega
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; telega
 (use-package! telega
@@ -710,7 +710,7 @@ _c_: remove mark         _C_: remove all
 #+end_src
 
 *** nov 电子书阅读
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; nov Novel reader
 (use-package! nov
@@ -1302,7 +1302,7 @@ nil means disabled."
 *** Player 媒体
 #+begin_src emacs-lisp :tangle no
 (use-package bongo
-  :ensure t
+  :commands (bongo)
   :bind ("C-<f9>" . bongo)
   :config
   (with-eval-after-load 'dired
