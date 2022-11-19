@@ -19,8 +19,7 @@
    '("f:/MyFile/Org/GTD/Agenda.org" "f:/MyFile/Org/GTD/Todo.org" "f:/MyFile/Org/Journal/20221119"))
  '(package-selected-packages '(use-package))
  '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
- '(pyim-dicts
-   '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")))
+ '(pyim-dicts nil)
  '(rustic-ansi-faces
    ["#fafafa" "#99324b" "#4f894c" "#9a7500" "#3b6ea8" "#97365b" "#398eac" "#2a2a2a"])
  '(vc-annotate-background "#fafafa")
