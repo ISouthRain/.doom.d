@@ -107,8 +107,8 @@
   (when freedom/is-linux
     (when (not freedom/is-termux)
       (setq url-proxy-services '(
-                                 ("http" . "192.168.1.8:7890")
-                                 ("https" . "192.168.1.8:7890"))))
+                                 ("http" . "192.168.1.4:7890")
+                                 ("https" . "192.168.1.4:7890"))))
     )
   )
 #+end_src
@@ -316,7 +316,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;日志
             ("j" "Journal" entry (file+datetree "F:\\MyFile\\Org\\Journal.org")
-             "* %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t)
+             "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "F:\\MyFile\\Org\\GTD\\Agenda.org" find-month-tree)
@@ -358,7 +358,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;日志
             ("j" "Journal" entry (file+datetree "~/MyFile/Org/Journal.org")
-             "* %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t)
+             "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/MyFile/Org/GTD/Agenda.org" find-month-tree)
@@ -396,7 +396,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;日志
             ("j" "Journal" entry (file+datetree "~/Desktop/MyFile/Org/Journal.org" )
-             "* %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t)
+             "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/Destop/MyFile/Org/GTD/Agenda.org" find-month-tree)
@@ -600,6 +600,32 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
 #+end_src
 
+**** org-journal
+#+begin_src emacs-lisp :tangle yes
+(use-package! org-journal
+  :defer t
+  :config
+  (if freedom/is-windows
+    (setq org-journal-dir "f:\\MyFile\\Org\\Journal"))
+  (if freedom/is-linux
+    (setq org-journal-dir "~/MyFile/Org/Journal"))
+  (if freedom/is-darwin
+    (setq org-journal-dir "~/Desktop/MyFile/Org/Journal"))
+  (setq org-journal-enable-agenda-integration t)
+  )
+#+end_src
+
+**** org-html-themify
+#+begin_src emacs-lisp :tangle yes
+(use-package! org-html-themify
+  :hook (org-mode . org-html-themify-mode)
+  :defer t
+  :config
+  (setq org-html-themify-themes
+        '((dark . doom-one)
+          (light . doom-solarized-light)))
+  )
+#+end_src
 *** aggressive-indet 自动格式化代码
 #+begin_src emacs-lisp :tangle yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -695,7 +721,7 @@ _c_: remove mark         _C_: remove all
   ;; (setq telega-use-docker t) ;; 是否设置为 docker server
   :config
   (when freedom/is-linux
-    (setq telega-proxies (list '(:server "192.168.31.241" :port 7890 :enable t
+    (setq telega-proxies (list '(:server "192.168.1.4" :port 7890 :enable t
                                  :type (:@type "proxyTypeSocks5")))))
   (when (not freedom/is-linux)
     (setq telega-proxies (list '(:server "127.0.0.1" :port 7890 :enable t
@@ -1267,6 +1293,11 @@ nil means disabled."
   (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command)
 
     (setq pyim-cloudim 'baidu)
+
+;; (setq pyim-dicts
+;;       '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")
+;;         (:name "王者荣耀" :file "~/.doom.d/.local/pyim/dicts/王者荣耀.txt")
+;;         ))
   ;; 设置光标颜色
   ;; (defun my-pyim-indicator-with-cursor-color (input-method chinese-input-p)
   ;;   (if (not (equal input-method "pyim"))
@@ -1290,6 +1321,53 @@ nil means disabled."
 
   );; pyim
 
+#+end_src
+
+#+RESULTS:
+| :name | 搜狗词库 | :file | ~/.doom.d/.local/pyim/dicts/sogou.txt    |
+| :name | 王者荣耀 | :file | ~/.doom.d/.local/pyim/dicts/王者荣耀.txt |
+
+*** Rime
+#+begin_src emacs-lisp :tangle no
+(use-package! rime
+  :defer 1
+  :config
+  (setq default-input-method "rime"
+        rime-user-data-dir "~/.doom.d/.local/Rime"
+        rime-show-candidate 'posframe)
+;; 默认值
+(setq rime-translate-keybindings
+  '("C-f" "C-b" "C-n" "C-p" "C-g" "<left>" "<right>" "<up>" "<down>" "<prior>" "<next>" "<delete>"))
+
+  (defun rime-evil-escape-advice (orig-fun key)
+    "advice for `rime-input-method' to make it work together with `evil-escape'.
+    Mainly modified from `evil-escape-pre-command-hook'"
+    (if rime--preedit-overlay
+    ;; if `rime--preedit-overlay' is non-nil, then we are editing something, do not abort
+    (apply orig-fun (list key))
+      (when (featurep 'evil-escape)
+    (let* (
+           (fkey (elt evil-escape-key-sequence 0))
+           (skey (elt evil-escape-key-sequence 1))
+           (evt (read-event nil nil evil-escape-delay))
+           )
+      (cond
+       ((and (characterp evt)
+         (or (and (char-equal key fkey) (char-equal evt skey))
+             (and evil-escape-unordered-key-sequence
+              (char-equal key skey) (char-equal evt fkey))))
+        (evil-repeat-stop)
+        (evil-normal-state))
+       ((null evt) (apply orig-fun (list key)))
+       (t
+        (apply orig-fun (list key))
+        (if (numberp evt)
+        (apply orig-fun (list evt))
+          (setq unread-command-events (append unread-command-events (list evt))))))))))
+
+  (advice-add 'rime-input-method :around #'rime-evil-escape-advice)
+
+  )
 #+end_src
 
 *** Lsp

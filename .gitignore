@@ -14,7 +14,6 @@ straight/
 .mbsyncrc.qq
 .offlineimaprc
 .offlineimap.py
-.stignore
 bookmarks
 org-roam.db
 recentf
@@ -27,3 +26,9 @@ server/
 transient/
 Gnus/
 .sync*
+
+Rime/build/
+Rime/*.userdb/
+Rime/installation.yaml
+Rime/user.yaml
+Rime/sync/

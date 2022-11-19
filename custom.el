@@ -1,6 +1,3 @@
-(put 'projectile-ag 'disabled nil)
-(put 'projectile-grep 'disabled nil)
-(put 'projectile-ripgrep 'disabled nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -10,6 +7,7 @@
    ["#fafafa" "#99324b" "#4f894c" "#9a7500" "#3b6ea8" "#97365b" "#398eac" "#2a2a2a"])
  '(custom-safe-themes
    '("51c71bb27bdab69b505d9bf71c99864051b37ac3de531d91fdad1598ad247138" default))
+ '(default-input-method "pyim")
  '(exwm-floating-border-color "#c4c4c4")
  '(fci-rule-color "#9e9e9e")
  '(highlight-tail-colors ((("#e8eee8") . 0) (("#e6eff2") . 20)))
@@ -17,8 +15,12 @@
  '(jdee-db-requested-breakpoint-face-colors (cons "#fafafa" "#4f894c"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#fafafa" "#bdbdbd"))
  '(objed-cursor-color "#99324b")
+ '(org-agenda-files
+   '("f:/MyFile/Org/GTD/Agenda.org" "f:/MyFile/Org/GTD/Todo.org" "f:/MyFile/Org/Journal/20221119"))
  '(package-selected-packages '(use-package))
  '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
+ '(pyim-dicts
+   '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")))
  '(rustic-ansi-faces
    ["#fafafa" "#99324b" "#4f894c" "#9a7500" "#3b6ea8" "#97365b" "#398eac" "#2a2a2a"])
  '(vc-annotate-background "#fafafa")

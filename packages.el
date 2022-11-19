@@ -66,3 +66,4 @@
 (package! meow :pin "4ad1a11d14c8bc0ba4137900c7833fbdacf7bdb3")
 (package! google-translate :pin "e60dd6eeb9cdb931d9d8bfbefc29a48ef9a21bd9")
 ;; (package! go-translate :pin "8bbcbce42a7139f079df3e9b9bda0def2cbb690f")
+(package! org-html-themify :recipe (:host github :repo "DogLooksGood/org-html-themify" :files ("*.el" "*.js" "*.css")) :pin "061cfc002ff6ea41c622447bec22f49d618c36de");; org exporg html theme

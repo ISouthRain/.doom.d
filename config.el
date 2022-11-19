@@ -86,8 +86,8 @@
   (when freedom/is-linux
     (when (not freedom/is-termux)
       (setq url-proxy-services '(
-                                 ("http" . "192.168.1.8:7890")
-                                 ("https" . "192.168.1.8:7890"))))
+                                 ("http" . "192.168.1.4:7890")
+                                 ("https" . "192.168.1.4:7890"))))
     )
   )
 
@@ -274,7 +274,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;日志
             ("j" "Journal" entry (file+datetree "F:\\MyFile\\Org\\Journal.org")
-             "* %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t)
+             "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "F:\\MyFile\\Org\\GTD\\Agenda.org" find-month-tree)
@@ -316,7 +316,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;日志
             ("j" "Journal" entry (file+datetree "~/MyFile/Org/Journal.org")
-             "* %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t)
+             "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/MyFile/Org/GTD/Agenda.org" find-month-tree)
@@ -354,7 +354,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
             ;;日志
             ("j" "Journal" entry (file+datetree "~/Desktop/MyFile/Org/Journal.org" )
-             "* %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t)
+             "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/Destop/MyFile/Org/GTD/Agenda.org" find-month-tree)
@@ -543,6 +543,27 @@ _j_: 增加 _k_: 减少 _g_: 重置
   (defun my-org-download--dir-1 ()
     (or org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) )))
   (advice-add #'org-download--dir-1 :override #'my-org-download--dir-1)
+  )
+
+(use-package! org-journal
+  :defer t
+  :config
+  (if freedom/is-windows
+    (setq org-journal-dir "f:\\MyFile\\Org\\Journal"))
+  (if freedom/is-linux
+    (setq org-journal-dir "~/MyFile/Org/Journal"))
+  (if freedom/is-darwin
+    (setq org-journal-dir "~/Desktop/MyFile/Org/Journal"))
+  (setq org-journal-enable-agenda-integration t)
+  )
+
+(use-package! org-html-themify
+  :hook (org-mode . org-html-themify-mode)
+  :defer t
+  :config
+  (setq org-html-themify-themes
+        '((dark . doom-one)
+          (light . doom-solarized-light)))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
