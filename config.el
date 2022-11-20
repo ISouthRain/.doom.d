@@ -1053,6 +1053,11 @@ nil means disabled."
   (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command)
 
     (setq pyim-cloudim 'baidu)
+
+;; (setq pyim-dicts
+;;       '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")
+;;         (:name "王者荣耀" :file "~/.doom.d/.local/pyim/dicts/王者荣耀.txt")
+;;         ))
   ;; 设置光标颜色
   ;; (defun my-pyim-indicator-with-cursor-color (input-method chinese-input-p)
   ;;   (if (not (equal input-method "pyim"))

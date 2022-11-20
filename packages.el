@@ -62,7 +62,7 @@
 ;;(package! doom-modeline :pin "ce9899f00af40edb78f58b9af5c3685d67c8eed2")
 ;; (package! awesome-tray :recipe (:host github :repo "manateelazycat/awesome-tray" :files ("*.el")) :pin "a7b174a8d927c18a32180e9524ee068a7a0547f6")
 (package! projectile-ripgrep)
-(package! ripgrep)
+(package! ripgrep :pin "b6bd5beb0c11348f1afd9486cbb451d0d2e3c45a")
 (package! meow :pin "4ad1a11d14c8bc0ba4137900c7833fbdacf7bdb3")
 (package! google-translate :pin "e60dd6eeb9cdb931d9d8bfbefc29a48ef9a21bd9")
 ;; (package! go-translate :pin "8bbcbce42a7139f079df3e9b9bda0def2cbb690f")
