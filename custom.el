@@ -16,7 +16,7 @@
  '(jdee-db-spec-breakpoint-face-colors (cons "#fafafa" "#bdbdbd"))
  '(objed-cursor-color "#99324b")
  '(org-agenda-files
-   '("f:/MyFile/Org/GTD/Agenda.org" "f:/MyFile/Org/GTD/Todo.org" "f:/MyFile/Org/Journal/20221119"))
+   '("f:/MyFile/Org/GTD/Agenda.org" "f:/MyFile/Org/GTD/Todo.org" "f:/MyFile/Org/Journal/20221120"))
  '(package-selected-packages '(use-package))
  '(pdf-view-midnight-colors (cons "#2a2a2a" "#fafafa"))
  '(pyim-dicts nil)
