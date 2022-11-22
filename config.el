@@ -1,4 +1,7 @@
-(server-start)
+(use-package! server
+  :config
+  (unless (server-running-p)
+    (server-start)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 解决 Windows 系统 server-start deamon 乱码问题
 (use-package! emacs
@@ -56,6 +59,7 @@
     ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
     ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
     (setq doom-font (font-spec :family "Iosevka" :size 22 :weight 'light))
+    ;; (setq doom-unicode-font (font-spec :family "霞鹜文楷" :size 22 :weight 'light))
     )
   (if freedom/is-linux
       (when (not freedom/is-termux)
@@ -1055,9 +1059,9 @@ nil means disabled."
     (setq pyim-cloudim 'baidu)
 
 ;; (setq pyim-dicts
-;;       '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")
-;;         (:name "王者荣耀" :file "~/.doom.d/.local/pyim/dicts/王者荣耀.txt")
-;;         ))
+      ;; '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")
+        ;; (:name "王者荣耀" :file "~/.doom.d/.local/pyim/dicts/王者荣耀.txt")
+        ;; ))
   ;; 设置光标颜色
   ;; (defun my-pyim-indicator-with-cursor-color (input-method chinese-input-p)
   ;;   (if (not (equal input-method "pyim"))
