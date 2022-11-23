@@ -50,9 +50,12 @@
                                         ;(unpin! t)
 
 (package! org-roam-ui :pin "16a8da9e5107833032893bc4c0680b368ac423ac")
+(package! org-download :pin "19e166f0a8c539b4144cfbc614309d47a9b2a9b7")
+
 (package! posframe :pin "0d23bc5f7cfac00277d83ae7ba52c48685bcbc68")
 (package! pyim :pin "6b4cea1b541f5efd18067d4cafa1ca4b059a0c63")
 (package! pyim-basedict :pin "4aa30ff9f83cf6435230a987d323e48230f1f40e")
+
 (package! nov :pin "ea0c835c1b5e6e70293f4bd64e9c89bdc42f8596")
 (package! telega :pin "42a0dd0e30a82a8e34eaccf6e7a1366f4621d49d");; 1.8.4
 ;; (package! telega :pin "66e83c8674042d47bf2cada05192f3d0b7e967a1");; 1.8.0

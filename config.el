@@ -536,18 +536,14 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-download
-(use-package org-download
-  :defer t
-  :load-path "~/.doom.d/core/plugins"
-  :config
-  (add-hook 'dired-mode-hook 'org-download-enable)
-  (setq org-download-heading-lvl nil)
-  ;; 文件目录
-  ;; (setq-default org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))
-  (defun my-org-download--dir-1 ()
-    (or org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) )))
-  (advice-add #'org-download--dir-1 :override #'my-org-download--dir-1)
-  )
+(add-hook 'dired-mode-hook 'org-download-enable)
+(setq org-download-heading-lvl nil)
+(setq org-download-timestamp "%Y%m%dT%H%M%S_")
+;; 文件目录
+;; (setq-default org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))
+(defun my-org-download--dir-1 ()
+  (or org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) )))
+(advice-add #'org-download--dir-1 :override #'my-org-download--dir-1)
 
 (use-package! org-journal
   :defer t
