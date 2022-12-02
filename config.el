@@ -534,6 +534,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
+(after! org-download)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-download
 (add-hook 'dired-mode-hook 'org-download-enable)

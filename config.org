@@ -1,8 +1,6 @@
 * Doom Emacs
 ** Info
-;; doom version commit
-
-;; https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61
+[[https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61][doom emacs version commit]]
 
 ⚠️这是属于个人配置, 请不要随便使用, 可能会导致某些错误⚠️
 ** Daemon
@@ -111,8 +109,8 @@
   (when freedom/is-linux
     (when (not freedom/is-termux)
       (setq url-proxy-services '(
-                                 ("http" . "192.168.1.4:7890")
-                                 ("https" . "192.168.1.4:7890"))))
+                                 ("http" . "192.168.1.8:7890")
+                                 ("https" . "192.168.1.8:7890"))))
     )
   )
 #+end_src
@@ -586,18 +584,20 @@ _j_: 增加 _k_: 减少 _g_: 重置
 #+end_src
 
 **** org-download
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-download
-(add-hook 'dired-mode-hook 'org-download-enable)
-(setq org-download-heading-lvl nil)
-(setq org-download-timestamp "%Y%m%dT%H%M%S_")
-;; 文件目录
-;; (setq-default org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))
-(defun my-org-download--dir-1 ()
-  (or org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) )))
-(advice-add #'org-download--dir-1 :override #'my-org-download--dir-1)
-
+(use-package! org-download
+  :config
+  (add-hook 'dired-mode-hook 'org-download-enable)
+  (setq org-download-heading-lvl nil)
+  (setq org-download-timestamp "%Y%m%dT%H%M%S_")
+  ;; 文件目录
+  ;; (setq-default org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))
+  (defun my-org-download--dir-1 ()
+    (or org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) )))
+  (advice-add #'org-download--dir-1 :override #'my-org-download--dir-1)
+  )
 #+end_src
 
 **** org-journal
@@ -1435,12 +1435,6 @@ nil means disabled."
   (emms-default-players)
   (emms-mode-line-disable)
   (setq emms-source-file-default-directory "F:\\MyFile\\Music"))
-#+end_src
-
-*** awesom-tray
-#+begin_src emacs-lisp :tangle no
-(use-package! awesom-tray
-  :hook (doom-after-modules-config . awesom-tray-mode))
 #+end_src
 
 ** Keymap
