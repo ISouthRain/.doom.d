@@ -1,12 +1,8 @@
 (use-package! server
   :config
   (unless (server-running-p)
-    (server-start)))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 解决 Windows 系统 server-start deamon 乱码问题
-(use-package! emacs
-  :defer t
-  :config
+    (server-start))
+  ;; 解决 Windows 系统 server-start deamon 乱码问题
   (when (eq system-type 'windows-nt)
     (setq locale-coding-system 'gb18030)  ;此句保证中文字体设置有效
     (setq w32-unicode-filenames 'nil)       ; 确保file-name-coding-system变量的设置不会无效
@@ -84,15 +80,12 @@
 (use-package! emacs
   :defer t
   :config
-  (setq url-proxy-services '(
-                             ("http" . "127.0.0.1:7890")
+  (setq url-proxy-services '(("http" . "127.0.0.1:7890")
                              ("https" . "127.0.0.1:7890")))
   (when freedom/is-linux
     (when (not freedom/is-termux)
-      (setq url-proxy-services '(
-                                 ("http" . "192.168.1.4:7890")
-                                 ("https" . "192.168.1.4:7890"))))
-    )
+      (setq url-proxy-services '(("http" . "192.168.1.3:7890")
+                                 ("https" . "192.168.1.3:7890")))))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -146,56 +139,59 @@ _j_: 增加 _k_: 减少 _g_: 重置
   ("<escape>" nil "cancel")
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Automatically replace the topic according to time
-(when (not freedom/is-termux)
-  (use-package! theme-changer
-    ;; :unless IS-MAC
-    :init
-    (setq calendar-location-name "香洲, GD")
-    ;; (setq calendar-latitude 39.9)
-    ;; (setq calendar-longitude 116.3)
-    (setq calendar-latitude 22.17)
-    (setq calendar-longitude 113.34)
-    :config
-    ;; Automatic replacement icon
-    (add-hook! 'doom-load-theme-hook
-      (setq fancy-splash-image
-            (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
-                                            'full
-                                            (rx ".png" eos))))
-              (elt banners (random (length banners))))))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Automatically replace the topic according to time
+  (when (not freedom/is-termux)
+    (use-package! theme-changer
+      ;; :unless IS-MAC
+      :init
+      (setq calendar-location-name "香洲, GD")
+      ;; (setq calendar-latitude 39.9)
+      ;; (setq calendar-longitude 116.3)
+      (setq calendar-latitude 22.17)
+      (setq calendar-longitude 113.34)
+      :config
+      ;; Automatic replacement icon
+      (add-hook! 'doom-load-theme-hook
+        (setq fancy-splash-image
+              (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
+                                              'full
+                                              (rx ".png" eos))))
+                (elt banners (random (length banners))))))
 
-    ;; The theme list of automatic replacement
-    (defconst +list-light-theme '(doom-one-light
-                                  doom-nord-light
-                                  doom-opera-light
-                                  doom-tomorrow-day))
-    (defconst +list-dark-theme  '(doom-one
-                                  doom-vibrant
-                                  doom-city-lights
-                                  doom-challenger-deep
-                                  doom-dracula
-                                  doom-gruvbox
-                                  doom-horizon
-                                  doom-Iosvkem
-                                  doom-material
-                                  doom-molokai
-                                  doom-monokai-classic
-                                  doom-monokai-pro
-                                  doom-moonlight
-                                  doom-oceanic-next
-                                  doom-palenight
-                                  doom-peacock
-                                  doom-rouge
-                                  doom-snazzy
-                                  doom-spacegrey
-                                  doom-tomorrow-night))
-    (add-hook! after-init
-               :append
-               (change-theme +list-light-theme
-                             +list-dark-theme)))
-  )
+      ;; The theme list of automatic replacement
+      (defconst +list-light-theme '(doom-one
+                                    ;; doom-one-light
+                                    ;; doom-nord-light
+                                    ;; doom-opera-light
+                                    ;; doom-tomorrow-day
+                                    ))
+      (defconst +list-dark-theme  '(doom-one
+                                    ;; doom-vibrant
+                                    ;; doom-city-lights
+                                    ;; doom-challenger-deep
+                                    ;; doom-dracula
+                                    ;; doom-gruvbox
+                                    ;; doom-horizon
+                                    ;; doom-Iosvkem
+                                    ;; doom-material
+                                    ;; doom-molokai
+                                    ;; doom-monokai-classic
+                                    ;; doom-monokai-pro
+                                    ;; doom-moonlight
+                                    ;; doom-oceanic-next
+                                    ;; doom-palenight
+                                    ;; doom-peacock
+                                    ;; doom-rouge
+                                    ;; doom-snazzy
+                                    ;; doom-spacegrey
+                                    ;; doom-tomorrow-night
+                                    ))
+      (add-hook! after-init
+                 :append
+                 (change-theme +list-light-theme
+                               +list-dark-theme)))
+    )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil-collection
@@ -251,6 +247,10 @@ _j_: 增加 _k_: 减少 _g_: 重置
       :timeout 0.5
       ";" 'freedom-english-translate
       "'" 'toggle-input-method))
+  (general-imap "f"
+    (general-key-dispatch 'self-insert-command
+      :timeout 0.5
+      "f" 'evil-avy-goto-char))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -533,18 +533,6 @@ _j_: 增加 _k_: 减少 _g_: 重置
         org-roam-ui-follow t
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
-
-(after! org-download)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; org-download
-(add-hook 'dired-mode-hook 'org-download-enable)
-(setq org-download-heading-lvl nil)
-(setq org-download-timestamp "%Y%m%dT%H%M%S_")
-;; 文件目录
-;; (setq-default org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name)))))
-(defun my-org-download--dir-1 ()
-  (or org-download-image-dir (concat "./Attachment/" (file-name-nondirectory (file-name-sans-extension (buffer-file-name))) )))
-(advice-add #'org-download--dir-1 :override #'my-org-download--dir-1)
 
 (use-package! org-journal
   :defer t
@@ -841,69 +829,6 @@ nil means disabled."
                 gnus-sum-thread-tree-vertical
                 "]*"))
   )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; mu4e
-;; (when freedom/is-linux
-;;   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e")
-;;   (when freedom/is-termux
-;;     (add-to-list 'load-path "/data/data/com.termux/files/usr/share/emacs/site-lisp/mu4e"))
-;;   (require 'mu4e)
-;;   (setq mu4e-maildir "~/Maildir")
-;;   (setq mu4e-change-filenames-when-moving t)
-;;   (pcase freedom-email-select
-;;     ('Gmail
-;;      (setq mu4e-get-mail-command "offlineimap -c ~/.doom.d/.offlineimaprc;mu init --maildir ~/Maildir --my-address isouthrain@gmail.com;mu index --maildir $HOME/Maildir")
-;;      (setq mu4e-reply-to-address "isouthrain@gmail.com"
-;;            user-mail-address "isouthrain@gmail.com"
-;;            user-full-name "ISouthRain")
-;;      (setq mu4e-drafts-folder "/Gmail/[Gmail].Drafts")
-;;      (setq mu4e-sent-folder "/Gmail/[Gmail].Sent Mail")
-;;      (setq mu4e-trash-folder "/Gmail/[Gmail].Trash")
-;;      (setq mu4e-maildir-shortcuts
-;;            '( ("/Gmail/INBOX" . ?i)
-;;               ("/Gmail/[Gmail].Sent Mail" . ?s)
-;;               ("/Gmail/[Gmail].Trash" . ?t)
-;;               ("/Gmail/[Gmail].Drafts" . ?d)
-;;               ("/Gmail/[Gmail].Starred" . ?m)
-;;               ("/Gmail/[Gmail].All Mail" . ?a)
-;;               ("/Gmail/[Gmail].Spam" . ?p)
-;;               ("/Gmail/[Gmail].Important" . ?z)))))
-
-;;   (pcase freedom-email-select
-;;     ('QQ
-;;      (setq mu4e-get-mail-command "offlineimap -c ~/.doom.d/.offlineimaprc;mu init --maildir ~/Maildir --my-address isouthrain@qq.com;mu index --maildir $HOME/Maildir")
-;;      (setq mu4e-reply-to-address "isouthrain@qq.com"
-;;            user-mail-address "isouthrain@qq.com"
-;;            user-full-name "ISouthRain")
-;;      (setq mu4e-drafts-folder "/QQ/Drafts")
-;;      (setq mu4e-sent-folder "/QQ/Sent Messages")
-;;      (setq mu4e-trash-folder "/QQ/Deleted Messages")
-;;      (setq mu4e-maildir-shortcuts
-;;            '( ("/QQ/INBOX" . ?i)
-;;               ("/QQ/Sent Messages" . ?s)
-;;               ("/QQ/Sent Mail" . ?m)
-;;               ("/QQ/Deleted Messages" . ?t)
-;;               ("/QQ/Drafts" . ?d)
-;;               ("/QQ/Junk" . ?j)))))
-
-;;   ;; ;; (setq message-signature-file "~/.emacs.d/.signature") ; put your signature in this file
-;;   ;; ;; get mail
-;;   ;; (setq mu4e-get-mail-command "mbsync -a -c ~/.emacs.d/.mbsyncrc;mu init -m ~/Maildir/QQ --my-address=isouthrain@gmail.com;mu index"
-;;   (setq mu4e-html2text-command "w3m -T text/html"
-;;         mu4e-update-interval 120
-;;         mu4e-headers-auto-update t
-;;         mu4e-compose-signature-auto-include nil)
-;;   ;; show images
-;;   (setq mu4e-show-images t)
-;;   ;; use imagemagick, if available
-;;   (when (fboundp 'imagemagick-register-types)
-;;     (imagemagick-register-types))
-;;   ;; don't save message to Sent Messages, IMAP takes care of this
-;;   (setq mu4e-sent-messages-behavior 'delete)
-;;   )
-
-;; )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; calfw
