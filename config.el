@@ -75,6 +75,29 @@
     )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; cnfonts Org-mode 中英文字体对齐
+(use-package! cnfonts
+  :config
+  (when freedom/is-windows
+    (setq cnfonts-directory (expand-file-name ".local/cnfonts/windows" doom-user-dir)))
+  (when freedom/is-linux
+    (setq cnfonts-directory (expand-file-name ".local/cnfonts/linux" doom-user-dir)))
+  (when freedom/is-darwin
+    (setq cnfonts-directory (expand-file-name ".local/cnfonts/darwin" doom-user-dir)))
+  (setq cnfonts-profiles
+        '("program" "org-mode" "read-book"))
+  (when (not freedom/is-termux)
+    (cnfonts-mode)
+    (cnfonts-set-font)
+    )
+  (setq cnfonts-personal-fontnames '(("Iosevka" "Consolas" "Bookerly" "Constantia" "PragmataPro Mono Liga" "Go Mono" "Fira Code" "Ubuntu Mono" "SF Mono");; 英文
+                                     ("霞鹜文楷" "霞鹜文楷等宽" "微软雅黑" "Sarasa Mono SC Nerd" "Bookerly" "M 盈黑 PRC W5" "方正聚珍新仿简繁" "苹方 常规" "苹方 中等" "M 盈黑 PRC W4" "PragmataPro Mono Liga");; 中文
+                                     ("Simsun-ExtB" "Bookerly" "方正聚珍新仿简繁" "PragmataPro Mono Liga");; EXT-B
+                                     ("Segoe UI Symbol" "Bookerly" "PragmataPro Mono Liga")));; 字符
+
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 代理
 (use-package! emacs
@@ -264,7 +287,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
   ;;   (setq company-dabbrev-char-regexp "[\\.0-9a-zA-Z-_'/]")
   ;;   (set-company-backend! 'org-mode
   ;;     'company-dabbrev-char-regexp 'company-yasnippet))
-
+  (setq org-id-locations-file "~/.doom.d/.local/.orgids")
   (setq org-capture-bookmark nil)
   (when freedom/is-windows
     (setq org-directory "F:\\MyFile\\Org"
@@ -945,13 +968,13 @@ nil means disabled."
     (toggle-company-english-helper))
   )
 
-(after! pyim
+(use-package! pyim
+  :commands (toggle-input-method)
   :init
   (setq pyim-dcache-directory (format "%s.local/pyim" doom-user-dir))
-  :defer 2
-  :config
   (pyim-basedict-enable);; 为 pyim 添加词库
   (pyim-default-scheme 'xiaohe-shuangpin) ;;
+  :config
   (setq pyim-page-length 5)
   (setq pyim-page-tooltip '(posframe popup minibuffer))
   (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。

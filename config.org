@@ -3,6 +3,10 @@
 [[https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61][doom emacs version commit]]
 
 ⚠️这是属于个人配置, 请不要随便使用, 可能会导致某些错误⚠️
+** Fonts
+- [[https://github.com/be5invis/Iosevka][GitHub - be5invis/Iosevka: Versatile typeface for code, from code.]]
+- [[https://github.com/lxgw/LxgwWenKai][GitHub - lxgw/LxgwWenKai: An open-source Chinese font derived from Fontworks'...]]
+
 ** Daemon
 #+begin_src emacs-lisp :tangle yes
 (use-package! server
@@ -89,6 +93,32 @@
     ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
     ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
     )
+  )
+#+end_src
+
+** cnfonts
+#+begin_src emacs-lisp :tangle yes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; cnfonts Org-mode 中英文字体对齐
+(use-package! cnfonts
+  :config
+  (when freedom/is-windows
+    (setq cnfonts-directory (expand-file-name ".local/cnfonts/windows" doom-user-dir)))
+  (when freedom/is-linux
+    (setq cnfonts-directory (expand-file-name ".local/cnfonts/linux" doom-user-dir)))
+  (when freedom/is-darwin
+    (setq cnfonts-directory (expand-file-name ".local/cnfonts/darwin" doom-user-dir)))
+  (setq cnfonts-profiles
+        '("program" "org-mode" "read-book"))
+  (when (not freedom/is-termux)
+    (cnfonts-mode)
+    (cnfonts-set-font)
+    )
+  (setq cnfonts-personal-fontnames '(("Iosevka" "Consolas" "Bookerly" "Constantia" "PragmataPro Mono Liga" "Go Mono" "Fira Code" "Ubuntu Mono" "SF Mono");; 英文
+                                     ("霞鹜文楷" "霞鹜文楷等宽" "微软雅黑" "Sarasa Mono SC Nerd" "Bookerly" "M 盈黑 PRC W5" "方正聚珍新仿简繁" "苹方 常规" "苹方 中等" "M 盈黑 PRC W4" "PragmataPro Mono Liga");; 中文
+                                     ("Simsun-ExtB" "Bookerly" "方正聚珍新仿简繁" "PragmataPro Mono Liga");; EXT-B
+                                     ("Segoe UI Symbol" "Bookerly" "PragmataPro Mono Liga")));; 字符
+
   )
 #+end_src
 
@@ -304,7 +334,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
   ;;   (setq company-dabbrev-char-regexp "[\\.0-9a-zA-Z-_'/]")
   ;;   (set-company-backend! 'org-mode
   ;;     'company-dabbrev-char-regexp 'company-yasnippet))
-
+  (setq org-id-locations-file "~/.doom.d/.local/.orgids")
   (setq org-capture-bookmark nil)
   (when freedom/is-windows
     (setq org-directory "F:\\MyFile\\Org"
@@ -1259,6 +1289,71 @@ nil means disabled."
 
 *** pyim
 #+begin_src emacs-lisp :tangle yes
+(use-package! pyim
+  :commands (toggle-input-method)
+  :init
+  (setq pyim-dcache-directory (format "%s.local/pyim" doom-user-dir))
+  (pyim-basedict-enable);; 为 pyim 添加词库
+  (pyim-default-scheme 'xiaohe-shuangpin) ;;
+  :config
+  (setq pyim-page-length 5)
+  (setq pyim-page-tooltip '(posframe popup minibuffer))
+  (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。
+  ;; 使用 jk 将能进入 evil-normal-mode
+  (defun my-pyim-self-insert-command (orig-func)
+    (interactive "*")
+    (if (and (local-variable-p 'last-event-time)
+             (floatp last-event-time)
+             (< (- (float-time) last-event-time) 0.2))
+        (set (make-local-variable 'temp-evil-escape-mode) t)
+      (set (make-local-variable 'temp-evil-escape-mode) nil)
+      )
+    (if (and temp-evil-escape-mode
+             (equal (pyim-entered-get) "j")
+             (equal last-command-event ?k))
+        (progn
+          (push last-command-event unread-command-events)
+          (pyim-process-outcome-handle 'pyim-entered)
+          (pyim-process-terminate))
+      (progn
+        (call-interactively orig-func)
+        (set (make-local-variable 'last-event-time) (float-time))
+        ))
+    )
+  (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command)
+
+    (setq pyim-cloudim 'baidu)
+
+;; (setq pyim-dicts
+      ;; '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")
+        ;; (:name "王者荣耀" :file "~/.doom.d/.local/pyim/dicts/王者荣耀.txt")
+        ;; ))
+  ;; 设置光标颜色
+  ;; (defun my-pyim-indicator-with-cursor-color (input-method chinese-input-p)
+  ;;   (if (not (equal input-method "pyim"))
+  ;;       (progn
+  ;;         ;; 用户在这里定义 pyim 未激活时的光标颜色设置语句
+  ;;         (set-cursor-color "red"))
+  ;;     (if chinese-input-p
+  ;;         (progn
+  ;;           ;; 用户在这里定义 pyim 输入中文时的光标颜色设置语句
+  ;;           (set-cursor-color "green"))
+  ;;       ;; 用户在这里定义 pyim 输入英文时的光标颜色设置语句
+  ;;       (set-cursor-color "blue"))))
+  ;; (setq pyim-indicator-list (list #'my-pyim-indicator-with-cursor-color #'pyim-indicator-with-modeline))
+  ;; 百度云拼音
+
+  ;; 添加对 meow 支持
+  ;; (defalias 'pyim-probe-meow-normal-mode #'(lambda nil
+  ;;                                                 (meow-normal-mode-p)))
+  ;; (setq-default pyim-english-input-switch-functions
+  ;;               '(pyim-probe-meow-normal-mode))
+
+  );; pyim
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle no
 (after! pyim
   :init
   (setq pyim-dcache-directory (format "%s.local/pyim" doom-user-dir))

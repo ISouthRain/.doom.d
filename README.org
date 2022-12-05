@@ -2,10 +2,11 @@
 #+author: ISouthRain
 #+date: <2022-08-31 周三>
 
-* Font
-- https://github.com/be5invis/Iosevka/releases/download/v16.1.0/ttf-iosevka-16.1.0.zip
-- https://github.com/BurntSushi/ripgrep/releases
+* Fonts
+- [[https://github.com/be5invis/Iosevka][GitHub - be5invis/Iosevka: Versatile typeface for code, from code.]]
+- [[https://github.com/lxgw/LxgwWenKai][GitHub - lxgw/LxgwWenKai: An open-source Chinese font derived from Fontworks'...]]
 - M-x all-the-icons-install-fhonts
+
 * Require
 #+BEGIN_SRC elisp
 (when freedom/is-termux
