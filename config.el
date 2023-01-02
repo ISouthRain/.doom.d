@@ -63,15 +63,11 @@
         (setq doom-font (font-spec :family "Iosevka" :size 22 :weight 'light))
         (setq initial-frame-alist
               '((top . 1) (left . 450) (width . 95) (height . 34)))
-        ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
-        ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
         )
     )
   (when freedom/is-darwin
     (setq initial-frame-alist
           '((top . 1) (left . 450) (width . 100) (height . 45)))
-    ;; (add-hook 'window-setup-hook #'toggle-frame-maximized t)
-    ;; (add-hook 'window-setup-hook #'toggle-frame-fullscreen t)
     )
   )
 
