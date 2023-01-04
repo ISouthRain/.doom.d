@@ -158,102 +158,59 @@ _j_: 增加 _k_: 减少 _g_: 重置
   ("<escape>" nil "cancel")
   )
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Automatically replace the topic according to time
-  (when (not freedom/is-termux)
-    (use-package! theme-changer
-      ;; :unless IS-MAC
-      :init
-      (setq calendar-location-name "香洲, GD")
-      ;; (setq calendar-latitude 39.9)
-      ;; (setq calendar-longitude 116.3)
-      (setq calendar-latitude 22.17)
-      (setq calendar-longitude 113.34)
-      :config
-      ;; Automatic replacement icon
-      (add-hook! 'doom-load-theme-hook
-        (setq fancy-splash-image
-              (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
-                                              'full
-                                              (rx ".png" eos))))
-                (elt banners (random (length banners))))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Automatically replace the topic according to time
+(when (not freedom/is-termux)
+  (use-package! theme-changer
+    ;; :unless IS-MAC
+    :init
+    (setq calendar-location-name "香洲, GD")
+    ;; (setq calendar-latitude 39.9)
+    ;; (setq calendar-longitude 116.3)
+    (setq calendar-latitude 22.17)
+    (setq calendar-longitude 113.34)
+    :config
+    ;; Automatic replacement icon
+    (add-hook! 'doom-load-theme-hook
+      (setq fancy-splash-image
+            (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
+                                            'full
+                                            (rx ".png" eos))))
+              (elt banners (random (length banners))))))
 
-      ;; The theme list of automatic replacement
-      (defconst +list-light-theme '(doom-one
-                                    ;; doom-one-light
-                                    ;; doom-nord-light
-                                    ;; doom-opera-light
-                                    ;; doom-tomorrow-day
-                                    ))
-      (defconst +list-dark-theme  '(doom-one
-                                    ;; doom-vibrant
-                                    ;; doom-city-lights
-                                    ;; doom-challenger-deep
-                                    ;; doom-dracula
-                                    ;; doom-gruvbox
-                                    ;; doom-horizon
-                                    ;; doom-Iosvkem
-                                    ;; doom-material
-                                    ;; doom-molokai
-                                    ;; doom-monokai-classic
-                                    ;; doom-monokai-pro
-                                    ;; doom-moonlight
-                                    ;; doom-oceanic-next
-                                    ;; doom-palenight
-                                    ;; doom-peacock
-                                    ;; doom-rouge
-                                    ;; doom-snazzy
-                                    ;; doom-spacegrey
-                                    ;; doom-tomorrow-night
-                                    ))
-      (add-hook! after-init
-                 :append
-                 (change-theme +list-light-theme
-                               +list-dark-theme)))
-    )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; evil-collection
-(use-package! evil-collection
-  :defer t
-  :config
-  (defun freedom-evil-collection-nov-setup ()
-    "Set up `evil' bindings for `nov'."
-    (evil-collection-define-key 'normal 'nov-mode-map
-      "gr" 'nov-render-document
-      "s" 'nov-view-source
-      "S" 'nov-view-content-source
-      "g?" 'nov-display-metadata
-      "gn" 'nov-next-document
-      (kbd "C-j") 'nov-next-document
-      (kbd "M-j") 'nov-next-document
-      "]]" 'nov-next-document
-      "gp" 'nov-previous-document
-      (kbd "C-k") 'nov-previous-document
-      (kbd "M-k") 'nov-previous-document
-      "gk" 'nov-scroll-down
-      "gj" 'nov-scroll-up
-      "[[" 'nov-previous-document
-
-      "t" 'nov-goto-toc
-      "i" 'nov-goto-toc
-      (kbd "RET") 'nov-browse-url
-      (kbd "<follow-link>") 'mouse-face
-      (kbd "<mouse-2>") 'nov-browse-url
-      (kbd "TAB") 'shr-next-link
-      (kbd "M-TAB") 'shr-previous-link
-      (kbd "<backtab>") 'shr-previous-link
-      (kbd "SPC") 'nov-scroll-up
-      (kbd "S-SPC") 'nov-scroll-down
-      (kbd "DEL") 'nov-scroll-down))
-  (advice-add #'evil-collection-nov-setup :override #'freedom-evil-collection-nov-setup)
+    ;; The theme list of automatic replacement
+    (defconst +list-light-theme '(doom-one
+                                  ;; doom-one-light
+                                  ;; doom-nord-light
+                                  ;; doom-opera-light
+                                  ;; doom-tomorrow-day
+                                  ))
+    (defconst +list-dark-theme  '(doom-one
+                                  ;; doom-vibrant
+                                  ;; doom-city-lights
+                                  ;; doom-challenger-deep
+                                  ;; doom-dracula
+                                  ;; doom-gruvbox
+                                  ;; doom-horizon
+                                  ;; doom-Iosvkem
+                                  ;; doom-material
+                                  ;; doom-molokai
+                                  ;; doom-monokai-classic
+                                  ;; doom-monokai-pro
+                                  ;; doom-moonlight
+                                  ;; doom-oceanic-next
+                                  ;; doom-palenight
+                                  ;; doom-peacock
+                                  ;; doom-rouge
+                                  ;; doom-snazzy
+                                  ;; doom-spacegrey
+                                  ;; doom-tomorrow-night
+                                  ))
+    (add-hook! after-init
+               :append
+               (change-theme +list-light-theme
+                             +list-dark-theme)))
   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; org mode cycle global
-(after! evil-org
-  :defer t
-  :config
-  (remove-hook 'org-tab-first-hook #'+org-cycle-only-current-subtree-h))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general
@@ -298,6 +255,10 @@ _j_: 增加 _k_: 减少 _g_: 重置
             ;;日志
             ("j" "Journal" entry (file+datetree "F:\\MyFile\\Org\\Journal.org")
              "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
+            ;;日志
+            ("J" "工作日志" entry (file+datetree "F:\\MyFile\\Org\\Work.org")
+             "* %<%H:%M> %^{记些什么} %?\n  %i" :kill-buffer t :immediate-finish t :prepend 1)
+
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "F:\\MyFile\\Org\\GTD\\Agenda.org" find-month-tree)
@@ -340,6 +301,10 @@ _j_: 增加 _k_: 减少 _g_: 重置
             ;;日志
             ("j" "Journal" entry (file+datetree "~/MyFile/Org/Journal.org")
              "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
+            ;;工作日志
+            ("J" "工作日志" entry (file+datetree "~/MyFile/Org/Work.org")
+             "* %<%H:%M> %^{记些什么} %?\n  %i" :kill-buffer t :immediate-finish t :prepend 1)
+
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/MyFile/Org/GTD/Agenda.org" find-month-tree)
@@ -378,6 +343,10 @@ _j_: 增加 _k_: 减少 _g_: 重置
             ;;日志
             ("j" "Journal" entry (file+datetree "~/Desktop/MyFile/Org/Journal.org" )
              "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
+            ;;日志
+            ("J" "工作日志" entry (file+datetree "~/Desktop/MyFile/Org/Work.org" )
+             "* %<%H:%M> %^{记些什么} %?\n  %i" :kill-buffer t :immediate-finish t :prepend 1)
+
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/Destop/MyFile/Org/GTD/Agenda.org" find-month-tree)
@@ -1028,6 +997,7 @@ nil means disabled."
 
 (setq dumb-jump-force-searcher 'rg)
 (setq dumb-jump-prefer-searcher 'rg)
+(setq dumb-jump-selector 'completing-read)
 
 (map! :nmv ";" #'evil-ex
       :nmv "m" #'hydra-bm/body

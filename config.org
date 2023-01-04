@@ -298,6 +298,10 @@ _j_: 增加 _k_: 减少 _g_: 重置
             ;;日志
             ("j" "Journal" entry (file+datetree "F:\\MyFile\\Org\\Journal.org")
              "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
+            ;;日志
+            ("J" "工作日志" entry (file+datetree "F:\\MyFile\\Org\\Work.org")
+             "* %<%H:%M> %^{记些什么} %?\n  %i" :kill-buffer t :immediate-finish t :prepend 1)
+
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "F:\\MyFile\\Org\\GTD\\Agenda.org" find-month-tree)
@@ -340,6 +344,10 @@ _j_: 增加 _k_: 减少 _g_: 重置
             ;;日志
             ("j" "Journal" entry (file+datetree "~/MyFile/Org/Journal.org")
              "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
+            ;;工作日志
+            ("J" "工作日志" entry (file+datetree "~/MyFile/Org/Work.org")
+             "* %<%H:%M> %^{记些什么} %?\n  %i" :kill-buffer t :immediate-finish t :prepend 1)
+
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/MyFile/Org/GTD/Agenda.org" find-month-tree)
@@ -378,6 +386,10 @@ _j_: 增加 _k_: 减少 _g_: 重置
             ;;日志
             ("j" "Journal" entry (file+datetree "~/Desktop/MyFile/Org/Journal.org" )
              "* %<%H:%M> %^{记些什么} %?\n  %i\n" :kill-buffer t :immediate-finish t :prepend 1)
+            ;;日志
+            ("J" "工作日志" entry (file+datetree "~/Desktop/MyFile/Org/Work.org" )
+             "* %<%H:%M> %^{记些什么} %?\n  %i" :kill-buffer t :immediate-finish t :prepend 1)
+
 
             ;;日程安排
             ("a" "日程安排" plain (file+function "~/Destop/MyFile/Org/GTD/Agenda.org" find-month-tree)
