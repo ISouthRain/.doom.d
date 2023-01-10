@@ -2,7 +2,7 @@
 ** Info
 [[https://github.com/doomemacs/doomemacs/commit/c44bc81a05f3758ceaa28921dd9c830b9c571e61][doom emacs version commit]]
 
-⚠️这是属于个人配置, 请不要随便使用, 可能会导致某些错误⚠️
+⚠ 这是属于个人配置, 请不要随便使用, 可能会导致某些错误 ⚠
 ** Fonts
 - [[https://github.com/be5invis/Iosevka][GitHub - be5invis/Iosevka: Versatile typeface for code, from code.]]
 - [[https://github.com/lxgw/LxgwWenKai][GitHub - lxgw/LxgwWenKai: An open-source Chinese font derived from Fontworks'...]]
@@ -129,8 +129,8 @@
                              ("https" . "127.0.0.1:7890")))
   (when freedom/is-linux
     (when (not freedom/is-termux)
-      (setq url-proxy-services '(("http" . "192.168.1.3:7890")
-                                 ("https" . "192.168.1.3:7890")))))
+      (setq url-proxy-services '(("http" . "192.168.1.11:7890")
+                                 ("https" . "192.168.1.11:7890")))))
   )
 #+end_src
 
@@ -163,37 +163,37 @@
   )
 #+end_src
 
-**** 窗口透明函数
+**** 窗口透明
 #+begin_src emacs-lisp :tangle yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 窗口透明
-(defun sanityinc/adjust-opacity (frame incr)
-  "Adjust the background opacity of FRAME by increment INCR."
-  (unless (display-graphic-p frame)
-    (error "Cannot adjust opacity of this frame"))
-  (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
-         (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
-         (newalpha (+ incr oldalpha)))
-    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
-      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
-(defhydra hydra-freedom-AdjustOpacity(:color pink
-                                      :hint nil
-                                      :foreign-keys warn ;; 不要使用hydra以外的键
-                                      )
-  "
-_j_: 增加 _k_: 减少 _g_: 重置
-"
-  ("j"  (sanityinc/adjust-opacity nil 2) :exit nil)
-  ("k"  (sanityinc/adjust-opacity nil -2) :exit nil)
-  ("g"  (modify-frame-parameters nil `((alpha . 100))) :exit nil)
-  ("q" nil "cancel")
-  ("<escape>" nil "cancel")
-  )
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; 窗口透明
+  (defun sanityinc/adjust-opacity (frame incr)
+    "Adjust the background opacity of FRAME by increment INCR."
+    (unless (display-graphic-p frame)
+      (error "Cannot adjust opacity of this frame"))
+    (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
+           (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
+           (newalpha (+ incr oldalpha)))
+      (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
+        (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
+  (defun freedom-window-opacity-add ()
+    "增加 窗口透明度"
+    (interactive)
+    (sanityinc/adjust-opacity nil -2))
+  (defun freedom-window-opacity-toreduce ()
+    "减少 窗口透明度"
+    (interactive)
+    (sanityinc/adjust-opacity nil 2))
+  (defun freedom-window-opacity-clear ()
+    "重置 窗口透明度"
+    (interactive)
+    (modify-frame-parameters nil `((alpha . 100))))
+
 #+end_src
 
 ** Package
 *** theme-changer 自动更换主题
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Automatically replace the topic according to time
   (when (not freedom/is-termux)
@@ -480,6 +480,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
 
   );; use-package org
 #+end_src
+
 **** org-appt 通知
 #+begin_src emacs-lisp :tangle yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -492,8 +493,6 @@ _j_: 增加 _k_: 减少 _g_: 重置
   ;; 每小时同步一次appt,并且现在就开始同步
   (run-at-time nil 3600 'org-agenda-to-appt)
   :config
-  ;; 更新agenda时，同步appt
-  ;; (add-hook 'org-agenda-finalize-hook 'org-agenda-to-appt)
   ;; 激活提醒
   (appt-activate 1)
   ;; 提前1分钟提醒, 单位: 分
@@ -536,7 +535,6 @@ _j_: 增加 _k_: 减少 _g_: 重置
     (goto-char (point-min))
     (while (search-forward "\r" nil t) (replace-match ""))
     (org-decrypt-entry))
-
   )
 #+end_src
 
@@ -561,7 +559,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
   (add-to-list 'org-roam-node-template-prefixes '("tags" . "#"))
   (add-to-list 'org-roam-node-template-prefixes '("type" . "@"))
   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-roam-ui
 (use-package! websocket
   :after org-roam)
@@ -1257,71 +1255,6 @@ nil means disabled."
   (pyim-basedict-enable);; 为 pyim 添加词库
   (pyim-default-scheme 'xiaohe-shuangpin) ;;
   :config
-  (setq pyim-page-length 5)
-  (setq pyim-page-tooltip '(posframe popup minibuffer))
-  (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。
-  ;; 使用 jk 将能进入 evil-normal-mode
-  (defun my-pyim-self-insert-command (orig-func)
-    (interactive "*")
-    (if (and (local-variable-p 'last-event-time)
-             (floatp last-event-time)
-             (< (- (float-time) last-event-time) 0.2))
-        (set (make-local-variable 'temp-evil-escape-mode) t)
-      (set (make-local-variable 'temp-evil-escape-mode) nil)
-      )
-    (if (and temp-evil-escape-mode
-             (equal (pyim-entered-get) "j")
-             (equal last-command-event ?k))
-        (progn
-          (push last-command-event unread-command-events)
-          (pyim-process-outcome-handle 'pyim-entered)
-          (pyim-process-terminate))
-      (progn
-        (call-interactively orig-func)
-        (set (make-local-variable 'last-event-time) (float-time))
-        ))
-    )
-  (advice-add 'pyim-self-insert-command :around #'my-pyim-self-insert-command)
-
-    (setq pyim-cloudim 'baidu)
-
-;; (setq pyim-dicts
-      ;; '((:name "搜狗词库" :file "~/.doom.d/.local/pyim/dicts/sogou.txt")
-        ;; (:name "王者荣耀" :file "~/.doom.d/.local/pyim/dicts/王者荣耀.txt")
-        ;; ))
-  ;; 设置光标颜色
-  ;; (defun my-pyim-indicator-with-cursor-color (input-method chinese-input-p)
-  ;;   (if (not (equal input-method "pyim"))
-  ;;       (progn
-  ;;         ;; 用户在这里定义 pyim 未激活时的光标颜色设置语句
-  ;;         (set-cursor-color "red"))
-  ;;     (if chinese-input-p
-  ;;         (progn
-  ;;           ;; 用户在这里定义 pyim 输入中文时的光标颜色设置语句
-  ;;           (set-cursor-color "green"))
-  ;;       ;; 用户在这里定义 pyim 输入英文时的光标颜色设置语句
-  ;;       (set-cursor-color "blue"))))
-  ;; (setq pyim-indicator-list (list #'my-pyim-indicator-with-cursor-color #'pyim-indicator-with-modeline))
-  ;; 百度云拼音
-
-  ;; 添加对 meow 支持
-  ;; (defalias 'pyim-probe-meow-normal-mode #'(lambda nil
-  ;;                                                 (meow-normal-mode-p)))
-  ;; (setq-default pyim-english-input-switch-functions
-  ;;               '(pyim-probe-meow-normal-mode))
-
-  );; pyim
-
-#+end_src
-
-#+begin_src emacs-lisp :tangle no
-(after! pyim
-  :init
-  (setq pyim-dcache-directory (format "%s.local/pyim" doom-user-dir))
-  :defer 2
-  :config
-  (pyim-basedict-enable);; 为 pyim 添加词库
-  (pyim-default-scheme 'xiaohe-shuangpin) ;;
   (setq pyim-page-length 5)
   (setq pyim-page-tooltip '(posframe popup minibuffer))
   (setq-default pyim-punctuation-translate-p '(no yes auto))   ;使用半角标点。

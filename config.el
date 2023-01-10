@@ -103,8 +103,8 @@
                              ("https" . "127.0.0.1:7890")))
   (when freedom/is-linux
     (when (not freedom/is-termux)
-      (setq url-proxy-services '(("http" . "192.168.1.3:7890")
-                                 ("https" . "192.168.1.3:7890")))))
+      (setq url-proxy-services '(("http" . "192.168.1.11:7890")
+                                 ("https" . "192.168.1.11:7890")))))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -133,84 +133,29 @@
     )
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 窗口透明
-(defun sanityinc/adjust-opacity (frame incr)
-  "Adjust the background opacity of FRAME by increment INCR."
-  (unless (display-graphic-p frame)
-    (error "Cannot adjust opacity of this frame"))
-  (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
-         (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
-         (newalpha (+ incr oldalpha)))
-    (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
-      (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
-(defhydra hydra-freedom-AdjustOpacity(:color pink
-                                      :hint nil
-                                      :foreign-keys warn ;; 不要使用hydra以外的键
-                                      )
-  "
-_j_: 增加 _k_: 减少 _g_: 重置
-"
-  ("j"  (sanityinc/adjust-opacity nil 2) :exit nil)
-  ("k"  (sanityinc/adjust-opacity nil -2) :exit nil)
-  ("g"  (modify-frame-parameters nil `((alpha . 100))) :exit nil)
-  ("q" nil "cancel")
-  ("<escape>" nil "cancel")
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Automatically replace the topic according to time
-(when (not freedom/is-termux)
-  (use-package! theme-changer
-    ;; :unless IS-MAC
-    :init
-    (setq calendar-location-name "香洲, GD")
-    ;; (setq calendar-latitude 39.9)
-    ;; (setq calendar-longitude 116.3)
-    (setq calendar-latitude 22.17)
-    (setq calendar-longitude 113.34)
-    :config
-    ;; Automatic replacement icon
-    (add-hook! 'doom-load-theme-hook
-      (setq fancy-splash-image
-            (let ((banners (directory-files (expand-file-name "banner" doom-private-dir)
-                                            'full
-                                            (rx ".png" eos))))
-              (elt banners (random (length banners))))))
-
-    ;; The theme list of automatic replacement
-    (defconst +list-light-theme '(doom-one
-                                  ;; doom-one-light
-                                  ;; doom-nord-light
-                                  ;; doom-opera-light
-                                  ;; doom-tomorrow-day
-                                  ))
-    (defconst +list-dark-theme  '(doom-one
-                                  ;; doom-vibrant
-                                  ;; doom-city-lights
-                                  ;; doom-challenger-deep
-                                  ;; doom-dracula
-                                  ;; doom-gruvbox
-                                  ;; doom-horizon
-                                  ;; doom-Iosvkem
-                                  ;; doom-material
-                                  ;; doom-molokai
-                                  ;; doom-monokai-classic
-                                  ;; doom-monokai-pro
-                                  ;; doom-moonlight
-                                  ;; doom-oceanic-next
-                                  ;; doom-palenight
-                                  ;; doom-peacock
-                                  ;; doom-rouge
-                                  ;; doom-snazzy
-                                  ;; doom-spacegrey
-                                  ;; doom-tomorrow-night
-                                  ))
-    (add-hook! after-init
-               :append
-               (change-theme +list-light-theme
-                             +list-dark-theme)))
-  )
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; 窗口透明
+  (defun sanityinc/adjust-opacity (frame incr)
+    "Adjust the background opacity of FRAME by increment INCR."
+    (unless (display-graphic-p frame)
+      (error "Cannot adjust opacity of this frame"))
+    (let* ((oldalpha (or (frame-parameter frame 'alpha) 100))
+           (oldalpha (if (listp oldalpha) (car oldalpha) oldalpha))
+           (newalpha (+ incr oldalpha)))
+      (when (and (<= frame-alpha-lower-limit newalpha) (>= 100 newalpha))
+        (modify-frame-parameters frame (list (cons 'alpha newalpha))))))
+  (defun freedom-window-opacity-add ()
+    "增加 窗口透明度"
+    (interactive)
+    (sanityinc/adjust-opacity nil -2))
+  (defun freedom-window-opacity-toreduce ()
+    "减少 窗口透明度"
+    (interactive)
+    (sanityinc/adjust-opacity nil 2))
+  (defun freedom-window-opacity-clear ()
+    "重置 窗口透明度"
+    (interactive)
+    (modify-frame-parameters nil `((alpha . 100))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general
@@ -447,8 +392,6 @@ _j_: 增加 _k_: 减少 _g_: 重置
   ;; 每小时同步一次appt,并且现在就开始同步
   (run-at-time nil 3600 'org-agenda-to-appt)
   :config
-  ;; 更新agenda时，同步appt
-  ;; (add-hook 'org-agenda-finalize-hook 'org-agenda-to-appt)
   ;; 激活提醒
   (appt-activate 1)
   ;; 提前1分钟提醒, 单位: 分
@@ -488,7 +431,6 @@ _j_: 增加 _k_: 减少 _g_: 重置
     (goto-char (point-min))
     (while (search-forward "\r" nil t) (replace-match ""))
     (org-decrypt-entry))
-
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -510,7 +452,7 @@ _j_: 增加 _k_: 减少 _g_: 重置
   (add-to-list 'org-roam-node-template-prefixes '("tags" . "#"))
   (add-to-list 'org-roam-node-template-prefixes '("type" . "@"))
   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-roam-ui
 (use-package! websocket
   :after org-roam)
